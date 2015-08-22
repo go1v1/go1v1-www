@@ -1,0 +1,21 @@
+{
+  "name": "go1v1-www",
+  "version": "0.0.0",
+  "description": "Website - http://go1v1.me.",
+  "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh)",
+  "license": "MIT",
+  "repository": "go1v1/go1v1-www",
+  "homepage": "https://go1v1.me",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "exorcist": "^0.4.0",
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-util": "^3.0.6",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.3.1"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "version": 3,
+  "sources": [
+    "node_modules/browserify/node_modules/browser-pack/_prelude.js",
+    "lib/router.js",
+    "src/index.js",
+    "src/routes/home.js",
+    "src/routes/index.js"
+  ],
+  "names": [],
+  "mappings": "AAAA;ACAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AC1BA;AACA;AACA;AACA;AACA;AACA;AACA;;ACNA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;ACTA;AACA;AACA;AACA;AACA;AACA",
+  "file": "generated.js",
+  "sourceRoot": "",
+  "sourcesContent": [
+    "(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\"function\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\"Cannot find module '\"+o+\"'\");throw f.code=\"MODULE_NOT_FOUND\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\"function\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})",
+    "'use strict'\n\nfunction Router(routes) {\n  this.routes = []\n\n  routes.forEach(this.add.bind(this))\n\n  window.addEventListener('statechange', this.parse.bind(this))\n  this.parse()\n}\n\nRouter.prototype.add = function(route) {\n  this.routes.push(route)\n}\n\nRouter.prototype.parse = function() {\n  console.log('parse')\n  this.routes.forEach(function(route) {\n    console.log(location.pathname, route.path)\n    if (location.pathname === route.path) {\n      route.handler()\n    }\n  }.bind(this))\n}\n\nmodule.exports = Router\n",
+    "'use strict'\n\nvar Router = require('../lib/router')\n  , routes = require('./routes')\n\nvar router = new Router(routes)\n",
+    "'use strict'\n\nmodule.exports = {\n  path: '/',\n  title: 'Home',\n  handler: function() {\n    console.log('home')\n  }\n}\n",
+    "'use strict'\n\nmodule.exports = [\n  require('./home')\n]\n"
+  ]
+}

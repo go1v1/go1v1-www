@@ -1,7 +1,7 @@
-import View from '../../lib/view'
-import Store from '../../lib/store'
+import View from 'go1v1-lib/view'
+import Store from 'go1v1-lib/store'
 
-export class Stats extends View {
+export default class Stats extends View {
   constructor(selector, summonerName) {
     super(selector)
 

@@ -1,8 +1,8 @@
-import View from '../../lib/view'
-import Store from '../../lib/store'
-import DuelView from './duel'
+import View from 'go1v1-lib/view'
+import Store from 'go1v1-lib/store'
+import DuelView from '::/views/duel'
 
-export class Duels extends View {
+export default class Duels extends View {
   constructor(selector, summonerName) {
     super(selector)
 

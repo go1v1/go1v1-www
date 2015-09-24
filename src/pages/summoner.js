@@ -1,7 +1,10 @@
-import Page from '../../lib/page'
-import { Details, Duels, Stats, User } from '../views'
+import Page from 'go1v1-lib/page'
+import Details from '::/views/details'
+import Duels from '::/views/duels'
+import Stats from '::/views/stats'
+import User from '::/views/user'
 
-export class SummonerPage extends Page {
+export default class SummonerPage extends Page {
   enter(ctx) {
     let summonerName = ctx.params.summoner
 

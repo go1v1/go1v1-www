@@ -1,4 +1,4 @@
-import View from '../../lib/view'
+import View from 'go1v1-lib/view'
 
 export default class Duel extends View {
   constructor(selector, summonerName, duel) {

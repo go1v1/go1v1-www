@@ -1,6 +1,6 @@
-import Page from '../../lib/page'
+import Page from 'go1v1-lib/page'
 
-export class HomePage extends Page{
+export default class HomePage extends Page{
   enter() {
     console.log('enter')
   }

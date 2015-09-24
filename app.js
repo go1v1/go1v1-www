@@ -1877,13 +1877,9 @@ var _viewsDuels = require('::/views/duels');
 
 var _viewsDuels2 = babelHelpers.interopRequireDefault(_viewsDuels);
 
-var _viewsStats = require('::/views/stats');
+var _viewsNav = require('::/views/nav');
 
-var _viewsStats2 = babelHelpers.interopRequireDefault(_viewsStats);
-
-var _viewsUser = require('::/views/user');
-
-var _viewsUser2 = babelHelpers.interopRequireDefault(_viewsUser);
+var _viewsNav2 = babelHelpers.interopRequireDefault(_viewsNav);
 
 var SummonerPage = (function (_Page) {
   babelHelpers.inherits(SummonerPage, _Page);
@@ -1903,15 +1899,14 @@ var SummonerPage = (function (_Page) {
 
       var duels = new _viewsDuels2['default']('.duels', summonerName);
       var details = new _viewsDetails2['default']('.details');
-      var stats = new _viewsStats2['default']('.stats', summonerName);
-      var user = new _viewsUser2['default']('.user', summonerName);
+      var nav = new _viewsNav2['default']('.nav', summonerName);
 
       duels.on('selected', details.update.bind(details));
     }
   }, {
     key: 'render',
     value: function render() {
-      return '\n      <nav class="nav">\n        <header class="user"></header>\n        <div class="stats"></div>\n      </nav>\n      <ul class="duels"></ul>\n      <div class="details"></div>\n    ';
+      return '\n      <nav class="nav"></nav>\n      <ul class="duels"></ul>\n      <div class="details"></div>\n    ';
     }
   }]);
   return SummonerPage;
@@ -1920,7 +1915,7 @@ var SummonerPage = (function (_Page) {
 exports['default'] = SummonerPage;
 module.exports = exports['default'];
 
-},{"::/views/details":19,"::/views/duels":21,"::/views/stats":22,"::/views/user":23,"go1v1-lib/page":5}],19:[function(require,module,exports){
+},{"::/views/details":19,"::/views/duels":20,"::/views/nav":21,"go1v1-lib/page":5}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1958,25 +1953,25 @@ var Details = (function (_View) {
     key: 'render',
     value: function render() {
       var duel = this.duel;
-      return '\n      <header class="summary">\n        <div class="mode">' + duel.mode.name + '</div>\n        <div class="score">' + duel.decisive.creator + ' / ' + duel.decisive.target + ' ' + duel.decisive.name + '</div>\n      </header>\n      <table class="scores">\n        <thead>\n          <tr>\n            <th></th>\n            <th>\n              <figure class="summoner creator">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.creator + '</figcaption>\n              </figure>\n            </th>\n            <th>\n              <figure class="summoner target">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.target + '</figcaption>\n              </figure>\n            </th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Rules</th>\n          </tr>\n          ' + this.renderRules() + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Restrictions</th>\n          </tr>\n          ' + this.renderRestrictions() + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Stuff</th>\n          </tr>\n          <tr>\n            <th></th>\n            <td>\n              <ul>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n              </ul>\n            </td>\n            <td>\n              <ul>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n              </ul>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    ';
+      return '\n      <header class="summary">\n        <div class="mode">' + duel.mode.name + '</div>\n        <div class="score">' + duel.decisive.creator + ' / ' + duel.decisive.target + ' ' + duel.decisive.name + '</div>\n      </header>\n      <table class="scores">\n        <thead>\n          <tr>\n            <th></th>\n            <th>\n              <figure class="summoner creator">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.creator + '</figcaption>\n              </figure>\n            </th>\n            <th>\n              <figure class="summoner target">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.target + '</figcaption>\n              </figure>\n            </th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Rules</th>\n          </tr>\n          ' + this.renderRules(duel) + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Restrictions</th>\n          </tr>\n          ' + this.renderRestrictions(duel) + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Stuff</th>\n          </tr>\n          <tr>\n            <th></th>\n            <td>\n              <ul>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n              </ul>\n            </td>\n            <td>\n              <ul>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n              </ul>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    ';
     }
   }, {
     key: 'renderRules',
-    value: function renderRules() {
+    value: function renderRules(duel) {
       var markup = '';
-      for (var ruleId in this.duel.scores.rules) {
-        var rule = this.duel.mode.rules[ruleId];
-        var score = this.duel.scores.rules[ruleId];
+      for (var ruleId in duel.scores.rules) {
+        var rule = duel.mode.rules[ruleId];
+        var score = duel.scores.rules[ruleId];
         markup += '\n        <tr>\n          <th>' + rule.value + ' ' + rule.name + '</td>\n          <td>' + score.creator + '</td>\n          <td>' + score.target + '</td>\n        </tr>\n      ';
       }
       return markup;
     }
   }, {
     key: 'renderRestrictions',
-    value: function renderRestrictions() {
+    value: function renderRestrictions(duel) {
       var markup = '';
-      for (var restrictionId in this.duel.mode.restrictions) {
-        var restriction = this.duel.mode.restrictions[restrictionId];
+      for (var restrictionId in duel.mode.restrictions) {
+        var restriction = duel.mode.restrictions[restrictionId];
         markup += '\n        <tr>\n          <th>' + restriction.name + '</td>\n          <td>✓</td>\n          <td>✓</td>\n        </tr>\n      ';
       }
       return markup;
@@ -1999,52 +1994,9 @@ var _go1v1LibView = require('go1v1-lib/view');
 
 var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var Duel = (function (_View) {
-  babelHelpers.inherits(Duel, _View);
-
-  function Duel(selector, summonerName, duel) {
-    babelHelpers.classCallCheck(this, Duel);
-
-    babelHelpers.get(Object.getPrototypeOf(Duel.prototype), 'constructor', this).call(this, selector);
-    this.summonerName = summonerName;
-    this.duel = duel;
-  }
-
-  babelHelpers.createClass(Duel, [{
-    key: 'render',
-    value: function render() {
-      return '\n      ' + this.renderCup() + '\n      <figure class="summoner creator">\n        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">\n        <figcaption>ngryman</figcaption>\n      </figure>\n      <span class="vs">vs</span>\n      <figure class="summoner target">\n        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">\n        <figcaption>Vocyfera2</figcaption>\n      </figure>\n    ';
-    }
-  }, {
-    key: 'renderCup',
-    value: function renderCup() {
-      return this.summonerName === this.duel[this.duel.winner] ? '\n      <div class="cup">\n        <svg>\n          <use xlink:href="#svg-cup">\n        </svg>\n      </div>\n    ' : '';
-    }
-  }]);
-  return Duel;
-})(_go1v1LibView2['default']);
-
-exports['default'] = Duel;
-module.exports = exports['default'];
-
-},{"go1v1-lib/view":8}],21:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _go1v1LibView = require('go1v1-lib/view');
-
-var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
-
 var _go1v1LibStore = require('go1v1-lib/store');
 
 var _go1v1LibStore2 = babelHelpers.interopRequireDefault(_go1v1LibStore);
-
-var _viewsDuel = require('::/views/duel');
-
-var _viewsDuel2 = babelHelpers.interopRequireDefault(_viewsDuel);
 
 var Duels = (function (_View) {
   babelHelpers.inherits(Duels, _View);
@@ -2073,12 +2025,19 @@ var Duels = (function (_View) {
     value: function render() {
       var _this2 = this;
 
-      return this.duels.map(function (duel) {
-        return new _viewsDuel2['default'](_this2.selector, _this2.summonerName, duel);
-      }).reduce(function (html, view) {
-        html += '<li class="duel">' + view.render() + '</li>';
-        return html;
+      return this.duels.reduce(function (markup, duel) {
+        return markup + _this2.renderDuel(duel);
       }, '');
+    }
+  }, {
+    key: 'renderDuel',
+    value: function renderDuel(duel) {
+      return '\n      <li class="duel">\n        ' + this.renderCup(duel) + '\n        <figure class="summoner creator">\n          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">\n          <figcaption>ngryman</figcaption>\n        </figure>\n        <span class="vs">vs</span>\n        <figure class="summoner target">\n          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">\n          <figcaption>Vocyfera2</figcaption>\n        </figure>\n      </li>\n    ';
+    }
+  }, {
+    key: 'renderCup',
+    value: function renderCup(duel) {
+      return this.summonerName === duel[duel.winner] ? '\n      <div class="cup">\n        <svg>\n          <use xlink:href="#svg-cup">\n        </svg>\n      </div>\n    ' : '';
     }
   }, {
     key: 'clicked',
@@ -2100,10 +2059,8 @@ var Duels = (function (_View) {
       if (this.$selected) {
         this.$selected.removeClass('selected');
       }
-
       $duel.addClass('selected');
       this.$selected = $duel;
-
       this.emit('selected', this.duels[$duel.index()].id);
     }
   }]);
@@ -2113,7 +2070,7 @@ var Duels = (function (_View) {
 exports['default'] = Duels;
 module.exports = exports['default'];
 
-},{"::/views/duel":20,"go1v1-lib/store":7,"go1v1-lib/view":8}],22:[function(require,module,exports){
+},{"go1v1-lib/store":7,"go1v1-lib/view":8}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2128,15 +2085,15 @@ var _go1v1LibStore = require('go1v1-lib/store');
 
 var _go1v1LibStore2 = babelHelpers.interopRequireDefault(_go1v1LibStore);
 
-var Stats = (function (_View) {
-  babelHelpers.inherits(Stats, _View);
+var Nav = (function (_View) {
+  babelHelpers.inherits(Nav, _View);
 
-  function Stats(selector, summonerName) {
+  function Nav(selector, summonerName) {
     var _this = this;
 
-    babelHelpers.classCallCheck(this, Stats);
+    babelHelpers.classCallCheck(this, Nav);
 
-    babelHelpers.get(Object.getPrototypeOf(Stats.prototype), 'constructor', this).call(this, selector);
+    babelHelpers.get(Object.getPrototypeOf(Nav.prototype), 'constructor', this).call(this, selector);
 
     _go1v1LibStore2['default'].summoner(summonerName).then(function (summoner) {
       _this.summoner = summoner;
@@ -2144,61 +2101,17 @@ var Stats = (function (_View) {
     });
   }
 
-  babelHelpers.createClass(Stats, [{
+  babelHelpers.createClass(Nav, [{
     key: 'render',
     value: function render() {
       var summoner = this.summoner;
-      return '\n      <div class="stat victories">\n        <div class="label">Victories</div>\n        <div class="value">' + summoner.victories + '</div>\n      </div>\n      <div class="stat defeats">\n        <div class="label">Defeats</div>\n        <div class="value">' + summoner.defeats + '</div>\n      </div>\n    ';
+      return '\n      <header class="user">\n        <img class="avatar" src="' + summoner.icon + '">\n        <span class="name">' + summoner.name + '</span>\n      </header>\n      <div class="stats">\n        <div class="stat victories">\n          <div class="label">Victories</div>\n          <div class="value">' + summoner.victories + '</div>\n        </div>\n        <div class="stat defeats">\n          <div class="label">Defeats</div>\n          <div class="value">' + summoner.defeats + '</div>\n        </div>\n      </div>\n    ';
     }
   }]);
-  return Stats;
+  return Nav;
 })(_go1v1LibView2['default']);
 
-exports['default'] = Stats;
-module.exports = exports['default'];
-
-},{"go1v1-lib/store":7,"go1v1-lib/view":8}],23:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _go1v1LibView = require('go1v1-lib/view');
-
-var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
-
-var _go1v1LibStore = require('go1v1-lib/store');
-
-var _go1v1LibStore2 = babelHelpers.interopRequireDefault(_go1v1LibStore);
-
-var User = (function (_View) {
-  babelHelpers.inherits(User, _View);
-
-  function User(selector, summonerName) {
-    var _this = this;
-
-    babelHelpers.classCallCheck(this, User);
-
-    babelHelpers.get(Object.getPrototypeOf(User.prototype), 'constructor', this).call(this, selector);
-
-    _go1v1LibStore2['default'].summoner(summonerName).then(function (summoner) {
-      _this.summoner = summoner;
-      _this.show();
-    });
-  }
-
-  babelHelpers.createClass(User, [{
-    key: 'render',
-    value: function render() {
-      var summoner = this.summoner;
-      return '\n      <img class="avatar" src="' + summoner.icon + '">\n      <span class="name">' + summoner.name + '</span>\n    ';
-    }
-  }]);
-  return User;
-})(_go1v1LibView2['default']);
-
-exports['default'] = User;
+exports['default'] = Nav;
 module.exports = exports['default'];
 
 },{"go1v1-lib/store":7,"go1v1-lib/view":8}]},{},[16])

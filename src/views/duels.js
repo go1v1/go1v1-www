@@ -1,6 +1,5 @@
 import View from 'go1v1-lib/view'
 import Store from 'go1v1-lib/store'
-import DuelView from '::/views/duel'
 
 export default class Duels extends View {
   constructor(selector, summonerName) {
@@ -20,11 +19,36 @@ export default class Duels extends View {
 
   render() {
     return this.duels
-    .map((duel) => new DuelView(this.selector, this.summonerName, duel))
-    .reduce((html, view) => {
-      html += `<li class="duel">${view.render()}</li>`
-      return html
-    }, '')
+    .reduce((markup, duel) =>
+      markup + this.renderDuel(duel)
+    , '')
+  }
+
+  renderDuel(duel) {
+    return `
+      <li class="duel">
+        ${this.renderCup(duel)}
+        <figure class="summoner creator">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+          <figcaption>ngryman</figcaption>
+        </figure>
+        <span class="vs">vs</span>
+        <figure class="summoner target">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+          <figcaption>Vocyfera2</figcaption>
+        </figure>
+      </li>
+    `
+  }
+
+  renderCup(duel) {
+    return this.summonerName === duel[duel.winner] ? `
+      <div class="cup">
+        <svg>
+          <use xlink:href="#svg-cup">
+        </svg>
+      </div>
+    ` : ''
   }
 
   clicked(e) {
@@ -44,10 +68,8 @@ export default class Duels extends View {
     if (this.$selected) {
       this.$selected.removeClass('selected')
     }
-
     $duel.addClass('selected')
     this.$selected = $duel
-
     this.emit('selected', this.duels[$duel.index()].id)
   }
 }

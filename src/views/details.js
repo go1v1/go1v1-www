@@ -43,12 +43,12 @@ export default class Details extends View {
             <th></th>
             <th colspan="2">Rules</th>
           </tr>
-          ${this.renderRules()}
+          ${this.renderRules(duel)}
           <tr class="heading">
             <th></th>
             <th colspan="2">Restrictions</th>
           </tr>
-          ${this.renderRestrictions()}
+          ${this.renderRestrictions(duel)}
           <tr class="heading">
             <th></th>
             <th colspan="2">Stuff</th>
@@ -79,11 +79,11 @@ export default class Details extends View {
     `
   }
 
-  renderRules() {
+  renderRules(duel) {
     let markup = ''
-    for (let ruleId in this.duel.scores.rules) {
-      let rule = this.duel.mode.rules[ruleId]
-      let score = this.duel.scores.rules[ruleId]
+    for (let ruleId in duel.scores.rules) {
+      let rule = duel.mode.rules[ruleId]
+      let score = duel.scores.rules[ruleId]
       markup += `
         <tr>
           <th>${rule.value} ${rule.name}</td>
@@ -95,10 +95,10 @@ export default class Details extends View {
     return markup
   }
 
-  renderRestrictions() {
+  renderRestrictions(duel) {
     let markup = ``
-    for (let restrictionId in this.duel.mode.restrictions) {
-      let restriction = this.duel.mode.restrictions[restrictionId]
+    for (let restrictionId in duel.mode.restrictions) {
+      let restriction = duel.mode.restrictions[restrictionId]
       markup += `
         <tr>
           <th>${restriction.name}</td>

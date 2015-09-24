@@ -1,8 +1,7 @@
 import Page from 'go1v1-lib/page'
 import Details from '::/views/details'
 import Duels from '::/views/duels'
-import Stats from '::/views/stats'
-import User from '::/views/user'
+import Nav from '::/views/nav'
 
 export default class SummonerPage extends Page {
   enter(ctx) {
@@ -13,18 +12,14 @@ export default class SummonerPage extends Page {
 
     let duels = new Duels('.duels', summonerName)
     let details = new Details('.details')
-    let stats = new Stats('.stats', summonerName)
-    let user = new User('.user', summonerName)
+    let nav = new Nav('.nav', summonerName)
 
     duels.on('selected', ::details.update)
   }
 
   render() {
     return `
-      <nav class="nav">
-        <header class="user"></header>
-        <div class="stats"></div>
-      </nav>
+      <nav class="nav"></nav>
       <ul class="duels"></ul>
       <div class="details"></div>
     `

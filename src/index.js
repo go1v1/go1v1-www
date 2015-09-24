@@ -1,6 +1,9 @@
-'use strict'
+import 'babel-core/external-helpers'
 
-var Router = require('../lib/router')
-  , routes = require('./routes')
+import Router from '../lib/router'
+import {
+  SummonerPage
+} from './pages'
 
-var router = new Router(routes)
+Router.add('/summoner/:summoner', new SummonerPage())
+Router.start()

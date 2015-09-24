@@ -1,0 +1,101 @@
+.details {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 700px;
+  padding: 80px;
+  color: #fff;
+}
+
+.details::before,
+.details::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  transform: scale(1, 0);
+  border-left: 4px solid #098CC8;
+  width: 100%;
+  background: rgba(255, 255, 255, .1);
+  // animation: details-appear 500ms 500ms forwards;
+  transform: scale(1, 1)
+}
+
+.details::before {
+  top: 0;
+  bottom: 50%;
+  transform-origin: bottom left;
+}
+
+.details::after {
+  top: 50%;
+  bottom: 0;
+  transform-origin: top left;
+}
+
+@keyframes details-appear {
+  0% {
+    transform: scale(1, .01);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.summary {
+  display: flex;
+}
+
+.summary .mode,
+.summary .score {
+  flex: 1;
+}
+
+.summary .score {
+  text-align: right;
+}
+
+.scores {
+  width: 100%;
+}
+
+.scores tr {
+  height: 30px;
+}
+
+.scores thead tr {
+  height: 100px;
+}
+
+.scores .heading {
+  height: 100px;
+}
+
+.scores .heading th {
+  text-align: center;
+}
+
+.scores td:nth-child(2) {
+  border-right: 1px solid rgba(255, 255, 255, .2);
+}
+
+.scores .heading {
+  text-transform: uppercase;
+}
+
+.scores th:first-child {
+  width: 20%;
+  text-align: right;
+}
+
+.scores td {
+  text-align: center;
+}
+
+.scores .summoner figcaption {
+  text-align: center;
+  font-size: 2.4em;
+  font-weight: 100;
+}

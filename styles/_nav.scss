@@ -1,0 +1,52 @@
+.nav {
+  position: fixed;
+  z-index: 1;
+  background: #202020;
+  color: #999;
+  font-size: 20px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  height: 110px;
+}
+
+.user .avatar {
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, .05);
+}
+
+.user .name {
+  margin-left: 20px;
+}
+
+.stats {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.stat {
+  margin: 40px 0;
+}
+
+.stat .label {
+  font-size: 1.2em;
+}
+
+.stat .value {
+  margin: 10px 0;
+  font-size: 2.5em;
+}
+
+.stat.victories .value {
+  color: #7ED321;
+}
+
+.stat.defeats .value {
+  color: #DB2828;
+}

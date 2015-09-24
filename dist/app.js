@@ -1801,25 +1801,32 @@ module.exports = Array.isArray || function (arr) {
 
 require('babel-core/external-helpers');
 
-var _libRouter = require('../lib/router');
+var _go1v1LibRouter = require('go1v1-lib/router');
 
-var _libRouter2 = babelHelpers.interopRequireDefault(_libRouter);
+var _go1v1LibRouter2 = babelHelpers.interopRequireDefault(_go1v1LibRouter);
 
-var _pages = require('./pages');
+var _pagesHome = require('::/pages/home');
 
-_libRouter2['default'].add('/summoner/:summoner', new _pages.SummonerPage());
-_libRouter2['default'].start();
+var _pagesHome2 = babelHelpers.interopRequireDefault(_pagesHome);
 
-},{"../lib/router":6,"./pages":18,"babel-core/external-helpers":9}],17:[function(require,module,exports){
+var _pagesSummoner = require('::/pages/summoner');
+
+var _pagesSummoner2 = babelHelpers.interopRequireDefault(_pagesSummoner);
+
+_go1v1LibRouter2['default'].add('/', new _pagesHome2['default']());
+_go1v1LibRouter2['default'].add('/summoner/:summoner', new _pagesSummoner2['default']());
+_go1v1LibRouter2['default'].start();
+
+},{"::/pages/home":17,"::/pages/summoner":18,"babel-core/external-helpers":9,"go1v1-lib/router":6}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _libPage = require('../../lib/page');
+var _go1v1LibPage = require('go1v1-lib/page');
 
-var _libPage2 = babelHelpers.interopRequireDefault(_libPage);
+var _go1v1LibPage2 = babelHelpers.interopRequireDefault(_go1v1LibPage);
 
 var HomePage = (function (_Page) {
   babelHelpers.inherits(HomePage, _Page);
@@ -1846,37 +1853,37 @@ var HomePage = (function (_Page) {
     }
   }]);
   return HomePage;
-})(_libPage2['default']);
+})(_go1v1LibPage2['default']);
 
-exports.HomePage = HomePage;
+exports['default'] = HomePage;
+module.exports = exports['default'];
 
-},{"../../lib/page":5}],18:[function(require,module,exports){
+},{"go1v1-lib/page":5}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _home = require('./home');
+var _go1v1LibPage = require('go1v1-lib/page');
 
-babelHelpers.defaults(exports, babelHelpers.interopExportWildcard(_home, babelHelpers.defaults));
+var _go1v1LibPage2 = babelHelpers.interopRequireDefault(_go1v1LibPage);
 
-var _summoner = require('./summoner');
+var _viewsDetails = require('::/views/details');
 
-babelHelpers.defaults(exports, babelHelpers.interopExportWildcard(_summoner, babelHelpers.defaults));
+var _viewsDetails2 = babelHelpers.interopRequireDefault(_viewsDetails);
 
-},{"./home":17,"./summoner":19}],19:[function(require,module,exports){
-'use strict';
+var _viewsDuels = require('::/views/duels');
 
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
+var _viewsDuels2 = babelHelpers.interopRequireDefault(_viewsDuels);
 
-var _libPage = require('../../lib/page');
+var _viewsStats = require('::/views/stats');
 
-var _libPage2 = babelHelpers.interopRequireDefault(_libPage);
+var _viewsStats2 = babelHelpers.interopRequireDefault(_viewsStats);
 
-var _views = require('../views');
+var _viewsUser = require('::/views/user');
+
+var _viewsUser2 = babelHelpers.interopRequireDefault(_viewsUser);
 
 var SummonerPage = (function (_Page) {
   babelHelpers.inherits(SummonerPage, _Page);
@@ -1894,10 +1901,10 @@ var SummonerPage = (function (_Page) {
       // logged?
       //   load additional features
 
-      var duels = new _views.Duels('.duels', summonerName);
-      var details = new _views.Details('.details');
-      var stats = new _views.Stats('.stats', summonerName);
-      var user = new _views.User('.user', summonerName);
+      var duels = new _viewsDuels2['default']('.duels', summonerName);
+      var details = new _viewsDetails2['default']('.details');
+      var stats = new _viewsStats2['default']('.stats', summonerName);
+      var user = new _viewsUser2['default']('.user', summonerName);
 
       duels.on('selected', details.update.bind(details));
     }
@@ -1908,24 +1915,25 @@ var SummonerPage = (function (_Page) {
     }
   }]);
   return SummonerPage;
-})(_libPage2['default']);
+})(_go1v1LibPage2['default']);
 
-exports.SummonerPage = SummonerPage;
+exports['default'] = SummonerPage;
+module.exports = exports['default'];
 
-},{"../../lib/page":5,"../views":23}],20:[function(require,module,exports){
+},{"::/views/details":19,"::/views/duels":21,"::/views/stats":22,"::/views/user":23,"go1v1-lib/page":5}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _libView = require('../../lib/view');
+var _go1v1LibView = require('go1v1-lib/view');
 
-var _libView2 = babelHelpers.interopRequireDefault(_libView);
+var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var _libStore = require('../../lib/store');
+var _go1v1LibStore = require('go1v1-lib/store');
 
-var _libStore2 = babelHelpers.interopRequireDefault(_libStore);
+var _go1v1LibStore2 = babelHelpers.interopRequireDefault(_go1v1LibStore);
 
 var Details = (function (_View) {
   babelHelpers.inherits(Details, _View);
@@ -1941,7 +1949,7 @@ var Details = (function (_View) {
     value: function update(duelId) {
       var _this = this;
 
-      _libStore2['default'].duel(duelId).then(function (duel) {
+      _go1v1LibStore2['default'].duel(duelId).then(function (duel) {
         _this.duel = duel;
         _this.show();
       });
@@ -1975,20 +1983,21 @@ var Details = (function (_View) {
     }
   }]);
   return Details;
-})(_libView2['default']);
+})(_go1v1LibView2['default']);
 
-exports.Details = Details;
+exports['default'] = Details;
+module.exports = exports['default'];
 
-},{"../../lib/store":7,"../../lib/view":8}],21:[function(require,module,exports){
+},{"go1v1-lib/store":7,"go1v1-lib/view":8}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _libView = require('../../lib/view');
+var _go1v1LibView = require('go1v1-lib/view');
 
-var _libView2 = babelHelpers.interopRequireDefault(_libView);
+var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
 var Duel = (function (_View) {
   babelHelpers.inherits(Duel, _View);
@@ -2013,29 +2022,29 @@ var Duel = (function (_View) {
     }
   }]);
   return Duel;
-})(_libView2['default']);
+})(_go1v1LibView2['default']);
 
 exports['default'] = Duel;
 module.exports = exports['default'];
 
-},{"../../lib/view":8}],22:[function(require,module,exports){
+},{"go1v1-lib/view":8}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _libView = require('../../lib/view');
+var _go1v1LibView = require('go1v1-lib/view');
 
-var _libView2 = babelHelpers.interopRequireDefault(_libView);
+var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var _libStore = require('../../lib/store');
+var _go1v1LibStore = require('go1v1-lib/store');
 
-var _libStore2 = babelHelpers.interopRequireDefault(_libStore);
+var _go1v1LibStore2 = babelHelpers.interopRequireDefault(_go1v1LibStore);
 
-var _duel = require('./duel');
+var _viewsDuel = require('::/views/duel');
 
-var _duel2 = babelHelpers.interopRequireDefault(_duel);
+var _viewsDuel2 = babelHelpers.interopRequireDefault(_viewsDuel);
 
 var Duels = (function (_View) {
   babelHelpers.inherits(Duels, _View);
@@ -2050,7 +2059,7 @@ var Duels = (function (_View) {
     this.summonerName = summonerName;
     this.$selected = null;
 
-    _libStore2['default'].duels(summonerName).then(function (duels) {
+    _go1v1LibStore2['default'].duels(summonerName).then(function (duels) {
       _this.duels = duels;
       _this.show();
 
@@ -2065,7 +2074,7 @@ var Duels = (function (_View) {
       var _this2 = this;
 
       return this.duels.map(function (duel) {
-        return new _duel2['default'](_this2.selector, _this2.summonerName, duel);
+        return new _viewsDuel2['default'](_this2.selector, _this2.summonerName, duel);
       }).reduce(function (html, view) {
         html += '<li class="duel">' + view.render() + '</li>';
         return html;
@@ -2099,47 +2108,25 @@ var Duels = (function (_View) {
     }
   }]);
   return Duels;
-})(_libView2['default']);
+})(_go1v1LibView2['default']);
 
-exports.Duels = Duels;
+exports['default'] = Duels;
+module.exports = exports['default'];
 
-},{"../../lib/store":7,"../../lib/view":8,"./duel":21}],23:[function(require,module,exports){
+},{"::/views/duel":20,"go1v1-lib/store":7,"go1v1-lib/view":8}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _details = require('./details');
+var _go1v1LibView = require('go1v1-lib/view');
 
-babelHelpers.defaults(exports, babelHelpers.interopExportWildcard(_details, babelHelpers.defaults));
+var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var _duels = require('./duels');
+var _go1v1LibStore = require('go1v1-lib/store');
 
-babelHelpers.defaults(exports, babelHelpers.interopExportWildcard(_duels, babelHelpers.defaults));
-
-var _stats = require('./stats');
-
-babelHelpers.defaults(exports, babelHelpers.interopExportWildcard(_stats, babelHelpers.defaults));
-
-var _user = require('./user');
-
-babelHelpers.defaults(exports, babelHelpers.interopExportWildcard(_user, babelHelpers.defaults));
-
-},{"./details":20,"./duels":22,"./stats":24,"./user":25}],24:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _libView = require('../../lib/view');
-
-var _libView2 = babelHelpers.interopRequireDefault(_libView);
-
-var _libStore = require('../../lib/store');
-
-var _libStore2 = babelHelpers.interopRequireDefault(_libStore);
+var _go1v1LibStore2 = babelHelpers.interopRequireDefault(_go1v1LibStore);
 
 var Stats = (function (_View) {
   babelHelpers.inherits(Stats, _View);
@@ -2151,7 +2138,7 @@ var Stats = (function (_View) {
 
     babelHelpers.get(Object.getPrototypeOf(Stats.prototype), 'constructor', this).call(this, selector);
 
-    _libStore2['default'].summoner(summonerName).then(function (summoner) {
+    _go1v1LibStore2['default'].summoner(summonerName).then(function (summoner) {
       _this.summoner = summoner;
       _this.show();
     });
@@ -2165,24 +2152,25 @@ var Stats = (function (_View) {
     }
   }]);
   return Stats;
-})(_libView2['default']);
+})(_go1v1LibView2['default']);
 
-exports.Stats = Stats;
+exports['default'] = Stats;
+module.exports = exports['default'];
 
-},{"../../lib/store":7,"../../lib/view":8}],25:[function(require,module,exports){
+},{"go1v1-lib/store":7,"go1v1-lib/view":8}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _libView = require('../../lib/view');
+var _go1v1LibView = require('go1v1-lib/view');
 
-var _libView2 = babelHelpers.interopRequireDefault(_libView);
+var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var _libStore = require('../../lib/store');
+var _go1v1LibStore = require('go1v1-lib/store');
 
-var _libStore2 = babelHelpers.interopRequireDefault(_libStore);
+var _go1v1LibStore2 = babelHelpers.interopRequireDefault(_go1v1LibStore);
 
 var User = (function (_View) {
   babelHelpers.inherits(User, _View);
@@ -2194,7 +2182,7 @@ var User = (function (_View) {
 
     babelHelpers.get(Object.getPrototypeOf(User.prototype), 'constructor', this).call(this, selector);
 
-    _libStore2['default'].summoner(summonerName).then(function (summoner) {
+    _go1v1LibStore2['default'].summoner(summonerName).then(function (summoner) {
       _this.summoner = summoner;
       _this.show();
     });
@@ -2208,9 +2196,10 @@ var User = (function (_View) {
     }
   }]);
   return User;
-})(_libView2['default']);
+})(_go1v1LibView2['default']);
 
-exports.User = User;
+exports['default'] = User;
+module.exports = exports['default'];
 
-},{"../../lib/store":7,"../../lib/view":8}]},{},[16])
+},{"go1v1-lib/store":7,"go1v1-lib/view":8}]},{},[16])
 //# sourceMappingURL=app.js.map

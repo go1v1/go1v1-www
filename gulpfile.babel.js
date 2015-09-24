@@ -16,7 +16,9 @@ const sync = browserSync.create()
 watchify.args.debug = true
 
 const bundler = watchify(
-  browserify('./src/index.js', watchify.args).transform(babelify.configure({
+  browserify('./src/index.js', watchify.args)
+  .transform(babelify.configure({
+    sourceMapRelative: process.cwd(),
     externalHelpers: true,
     optional: ['es7.decorators', 'es7.functionBind']
   }))

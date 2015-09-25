@@ -169,6 +169,39 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _deepAssign = require('deep-assign');
+
+var _deepAssign2 = babelHelpers.interopRequireDefault(_deepAssign);
+
+var Model = (function () {
+  function Model(snapshot) {
+    babelHelpers.classCallCheck(this, Model);
+
+    (0, _deepAssign2['default'])(this, snapshot.val());
+    if ('function' == typeof this.enhance) this.enhance(snapshot, this);
+  }
+
+  babelHelpers.createClass(Model, null, [{
+    key: 'resolveWith',
+    value: function resolveWith(ctor, resolve) {
+      return function (snapshot) {
+        resolve(new ctor(snapshot));
+      };
+    }
+  }]);
+  return Model;
+})();
+
+exports['default'] = Model;
+module.exports = exports['default'];
+
+},{"deep-assign":11}],6:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
 var _view = require('./view');
 
 var _view2 = babelHelpers.interopRequireDefault(_view);
@@ -203,7 +236,7 @@ var Page = (function (_View) {
 exports['default'] = Page;
 module.exports = exports['default'];
 
-},{"./view":8}],6:[function(require,module,exports){
+},{"./view":8}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -240,99 +273,7 @@ var Router = (function () {
 exports['default'] = Router;
 module.exports = exports['default'];
 
-},{"page":13}],7:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _deepAssign = require('deep-assign');
-
-var _deepAssign2 = babelHelpers.interopRequireDefault(_deepAssign);
-
-var _go1v1StaticModes = require('go1v1-static/modes');
-
-var _go1v1StaticModes2 = babelHelpers.interopRequireDefault(_go1v1StaticModes);
-
-var _go1v1StaticRules = require('go1v1-static/rules');
-
-var _go1v1StaticRules2 = babelHelpers.interopRequireDefault(_go1v1StaticRules);
-
-var _go1v1StaticRestrictions = require('go1v1-static/restrictions');
-
-var _go1v1StaticRestrictions2 = babelHelpers.interopRequireDefault(_go1v1StaticRestrictions);
-
-var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
-
-var Store = (function () {
-  function Store() {
-    babelHelpers.classCallCheck(this, Store);
-  }
-
-  babelHelpers.createClass(Store, null, [{
-    key: 'summoner',
-    value: function summoner(summonerName) {
-      return firebaseFetch('euw/summoners/' + summonerName).then(function (snapshot) {
-        var summoner = snapshot.val();
-        summoner.name = snapshot.key();
-        return summoner;
-      });
-    }
-  }, {
-    key: 'duels',
-    value: function duels(summonerName) {
-      return firebaseFetch('euw/summoner-duels/' + summonerName).then(function (snapshot) {
-        var duels = [];
-        snapshot.forEach(function (childSnapshot) {
-          var duel = childSnapshot.val();
-          duel.id = childSnapshot.key();
-          duels.push(duel);
-        });
-        return duels;
-      });
-    }
-  }, {
-    key: 'duel',
-    value: function duel(duelId) {
-      return firebaseFetch('euw/duels/' + duelId).then(function (snapshot) {
-        var duel = snapshot.val();
-        duel.mode = (0, _deepAssign2['default'])({}, _go1v1StaticModes2['default'][duel.mode]);
-
-        // rules enhancement
-        var duelRules = duel.mode.rules;
-        for (var ruleId in duelRules) {
-          duelRules[ruleId] = (0, _deepAssign2['default'])({ value: duelRules[ruleId] }, _go1v1StaticRules2['default'][ruleId]);
-        }
-
-        // restrictions enhancement
-        for (var restrictionId in duel.mode.restrictions) {
-          var restriction = duel.mode.restrictions[restrictionId];
-          (0, _deepAssign2['default'])(duel.mode.restrictions[restrictionId], _go1v1StaticRestrictions2['default'][restrictionId]);
-        }
-
-        // decisive score
-        duel.decisive = (0, _deepAssign2['default'])(duelRules[duel.decisive], duel.scores.rules[duel.decisive]);
-
-        return duel;
-      });
-    }
-  }]);
-  return Store;
-})();
-
-exports['default'] = Store;
-
-function firebaseFetch(path) {
-  return new Promise(function (resolve, reject) {
-    firebase.child(path).on('value', function (snapshot) {
-      resolve(snapshot);
-    }, reject);
-  });
-}
-module.exports = exports['default'];
-
-},{"deep-assign":11,"go1v1-static/modes":1,"go1v1-static/restrictions":2,"go1v1-static/rules":3}],8:[function(require,module,exports){
+},{"page":13}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1799,6 +1740,62 @@ module.exports = Array.isArray || function (arr) {
 },{}],16:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _go1v1LibModel = require('go1v1-lib/model');
+
+var _go1v1LibModel2 = babelHelpers.interopRequireDefault(_go1v1LibModel);
+
+var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
+
+var Duels = (function () {
+  function Duels() {
+    babelHelpers.classCallCheck(this, Duels);
+  }
+
+  babelHelpers.createClass(Duels, null, [{
+    key: 'fetch',
+    value: function fetch(summonerName) {
+      return new Promise(function (resolve, reject) {
+        firebase.child('euw/summoner-duels/' + summonerName).on('value', function (snapshot) {
+          var duels = [];
+          snapshot.forEach(function (childSnapshot) {
+            duels.push(new DuelPreview(childSnapshot));
+          });
+          resolve(duels);
+        }, reject);
+      });
+    }
+  }]);
+  return Duels;
+})();
+
+exports['default'] = Duels;
+
+var DuelPreview = (function (_Model) {
+  babelHelpers.inherits(DuelPreview, _Model);
+
+  function DuelPreview() {
+    babelHelpers.classCallCheck(this, DuelPreview);
+    babelHelpers.get(Object.getPrototypeOf(DuelPreview.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  babelHelpers.createClass(DuelPreview, [{
+    key: 'enhance',
+    value: function enhance(snapshot, duelPreview) {
+      duelPreview.id = snapshot.key();
+    }
+  }]);
+  return DuelPreview;
+})(_go1v1LibModel2['default']);
+
+module.exports = exports['default'];
+
+},{"go1v1-lib/model":5}],17:[function(require,module,exports){
+'use strict';
+
 require('babel-core/external-helpers');
 
 var _go1v1LibRouter = require('go1v1-lib/router');
@@ -1817,7 +1814,121 @@ _go1v1LibRouter2['default'].add('/', new _pagesHome2['default']());
 _go1v1LibRouter2['default'].add('/summoner/:summoner', new _pagesSummoner2['default']());
 _go1v1LibRouter2['default'].start();
 
-},{"::/pages/home":17,"::/pages/summoner":18,"babel-core/external-helpers":9,"go1v1-lib/router":6}],17:[function(require,module,exports){
+},{"::/pages/home":20,"::/pages/summoner":21,"babel-core/external-helpers":9,"go1v1-lib/router":7}],18:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _deepAssign = require('deep-assign');
+
+var _deepAssign2 = babelHelpers.interopRequireDefault(_deepAssign);
+
+var _go1v1LibModel = require('go1v1-lib/model');
+
+var _go1v1LibModel2 = babelHelpers.interopRequireDefault(_go1v1LibModel);
+
+var _go1v1StaticModes = require('go1v1-static/modes');
+
+var _go1v1StaticModes2 = babelHelpers.interopRequireDefault(_go1v1StaticModes);
+
+var _go1v1StaticRules = require('go1v1-static/rules');
+
+var _go1v1StaticRules2 = babelHelpers.interopRequireDefault(_go1v1StaticRules);
+
+var _go1v1StaticRestrictions = require('go1v1-static/restrictions');
+
+var _go1v1StaticRestrictions2 = babelHelpers.interopRequireDefault(_go1v1StaticRestrictions);
+
+var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
+
+var Duel = (function (_Model) {
+  babelHelpers.inherits(Duel, _Model);
+
+  function Duel() {
+    babelHelpers.classCallCheck(this, Duel);
+    babelHelpers.get(Object.getPrototypeOf(Duel.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  babelHelpers.createClass(Duel, [{
+    key: 'enhance',
+    value: function enhance(snapshot, duel) {
+      duel.mode = (0, _deepAssign2['default'])({}, _go1v1StaticModes2['default'][duel.mode]);
+
+      // rules enhancement
+      var duelRules = duel.mode.rules;
+      for (var ruleId in duelRules) {
+        duelRules[ruleId] = (0, _deepAssign2['default'])({ value: duelRules[ruleId] }, _go1v1StaticRules2['default'][ruleId]);
+      }
+
+      // restrictions enhancement
+      var duelRestrictions = duel.mode.restrictions;
+      for (var restrictionId in duelRestrictions) {
+        var restriction = duelRestrictions[restrictionId];
+        (0, _deepAssign2['default'])(duelRestrictions[restrictionId], _go1v1StaticRestrictions2['default'][restrictionId]);
+      }
+
+      // decisive score
+      duel.decisive = (0, _deepAssign2['default'])(duelRules[duel.decisive], duel.scores.rules[duel.decisive]);
+    }
+  }], [{
+    key: 'fetch',
+    value: function fetch(id) {
+      return new Promise(function (resolve, reject) {
+        firebase.child('euw/duels/' + id).on('value', _go1v1LibModel2['default'].resolveWith(Duel, resolve), reject);
+      });
+    }
+  }]);
+  return Duel;
+})(_go1v1LibModel2['default']);
+
+exports['default'] = Duel;
+module.exports = exports['default'];
+
+},{"deep-assign":11,"go1v1-lib/model":5,"go1v1-static/modes":1,"go1v1-static/restrictions":2,"go1v1-static/rules":3}],19:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _go1v1LibModel = require('go1v1-lib/model');
+
+var _go1v1LibModel2 = babelHelpers.interopRequireDefault(_go1v1LibModel);
+
+var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
+
+var Summoner = (function (_Model) {
+  babelHelpers.inherits(Summoner, _Model);
+
+  function Summoner() {
+    babelHelpers.classCallCheck(this, Summoner);
+    babelHelpers.get(Object.getPrototypeOf(Summoner.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  babelHelpers.createClass(Summoner, [{
+    key: 'enhance',
+    value: function enhance(snapshot, summoner) {
+      summoner.name = snapshot.key();
+    }
+  }], [{
+    key: 'fetch',
+    value: function fetch(name) {
+      return new Promise(function (resolve, reject) {
+        firebase.child('euw/summoners/' + name).on('value', function (snapshot) {
+          resolve(new Summoner(snapshot));
+        }, reject);
+      });
+    }
+  }]);
+  return Summoner;
+})(_go1v1LibModel2['default']);
+
+exports['default'] = Summoner;
+module.exports = exports['default'];
+
+},{"go1v1-lib/model":5}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1858,7 +1969,7 @@ var HomePage = (function (_Page) {
 exports['default'] = HomePage;
 module.exports = exports['default'];
 
-},{"go1v1-lib/page":5}],18:[function(require,module,exports){
+},{"go1v1-lib/page":6}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1915,7 +2026,7 @@ var SummonerPage = (function (_Page) {
 exports['default'] = SummonerPage;
 module.exports = exports['default'];
 
-},{"::/views/details":19,"::/views/duels":20,"::/views/nav":21,"go1v1-lib/page":5}],19:[function(require,module,exports){
+},{"::/views/details":22,"::/views/duels":23,"::/views/nav":24,"go1v1-lib/page":6}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1926,9 +2037,9 @@ var _go1v1LibView = require('go1v1-lib/view');
 
 var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var _go1v1LibStore = require('go1v1-lib/store');
+var _modelsDuel = require('::/models/duel');
 
-var _go1v1LibStore2 = babelHelpers.interopRequireDefault(_go1v1LibStore);
+var _modelsDuel2 = babelHelpers.interopRequireDefault(_modelsDuel);
 
 var Details = (function (_View) {
   babelHelpers.inherits(Details, _View);
@@ -1944,7 +2055,7 @@ var Details = (function (_View) {
     value: function update(duelId) {
       var _this = this;
 
-      _go1v1LibStore2['default'].duel(duelId).then(function (duel) {
+      _modelsDuel2['default'].fetch(duelId).then(function (duel) {
         _this.duel = duel;
         _this.show();
       });
@@ -1983,7 +2094,7 @@ var Details = (function (_View) {
 exports['default'] = Details;
 module.exports = exports['default'];
 
-},{"go1v1-lib/store":7,"go1v1-lib/view":8}],20:[function(require,module,exports){
+},{"::/models/duel":18,"go1v1-lib/view":8}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1994,9 +2105,9 @@ var _go1v1LibView = require('go1v1-lib/view');
 
 var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var _go1v1LibStore = require('go1v1-lib/store');
+var _collectionsDuels = require('::/collections/duels');
 
-var _go1v1LibStore2 = babelHelpers.interopRequireDefault(_go1v1LibStore);
+var _collectionsDuels2 = babelHelpers.interopRequireDefault(_collectionsDuels);
 
 var Duels = (function (_View) {
   babelHelpers.inherits(Duels, _View);
@@ -2011,7 +2122,7 @@ var Duels = (function (_View) {
     this.summonerName = summonerName;
     this.$selected = null;
 
-    _go1v1LibStore2['default'].duels(summonerName).then(function (duels) {
+    _collectionsDuels2['default'].fetch(summonerName).then(function (duels) {
       _this.duels = duels;
       _this.show();
 
@@ -2075,7 +2186,7 @@ var Duels = (function (_View) {
 exports['default'] = Duels;
 module.exports = exports['default'];
 
-},{"go1v1-lib/store":7,"go1v1-lib/view":8}],21:[function(require,module,exports){
+},{"::/collections/duels":16,"go1v1-lib/view":8}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2086,9 +2197,9 @@ var _go1v1LibView = require('go1v1-lib/view');
 
 var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var _go1v1LibStore = require('go1v1-lib/store');
+var _modelsSummoner = require('::/models/summoner');
 
-var _go1v1LibStore2 = babelHelpers.interopRequireDefault(_go1v1LibStore);
+var _modelsSummoner2 = babelHelpers.interopRequireDefault(_modelsSummoner);
 
 var Nav = (function (_View) {
   babelHelpers.inherits(Nav, _View);
@@ -2100,7 +2211,7 @@ var Nav = (function (_View) {
 
     babelHelpers.get(Object.getPrototypeOf(Nav.prototype), 'constructor', this).call(this, selector);
 
-    _go1v1LibStore2['default'].summoner(summonerName).then(function (summoner) {
+    _modelsSummoner2['default'].fetch(summonerName).then(function (summoner) {
       _this.summoner = summoner;
       _this.show();
     });
@@ -2119,5 +2230,5 @@ var Nav = (function (_View) {
 exports['default'] = Nav;
 module.exports = exports['default'];
 
-},{"go1v1-lib/store":7,"go1v1-lib/view":8}]},{},[16])
+},{"::/models/summoner":19,"go1v1-lib/view":8}]},{},[17])
 //# sourceMappingURL=app.js.map

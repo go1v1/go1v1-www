@@ -1,5 +1,5 @@
 import View from 'go1v1-lib/view'
-import Store from 'go1v1-lib/store'
+import DuelsCollection from '::/collections/duels'
 
 export default class Duels extends View {
   constructor(selector, summonerName) {
@@ -8,7 +8,7 @@ export default class Duels extends View {
     this.summonerName = summonerName
     this.$selected = null
 
-    Store.duels(summonerName).then((duels) => {
+    DuelsCollection.fetch(summonerName).then((duels) => {
       this.duels = duels
       this.show()
 

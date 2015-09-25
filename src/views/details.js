@@ -1,5 +1,5 @@
 import View from 'go1v1-lib/view'
-import Store from 'go1v1-lib/store'
+import Duel from '::/models/duel'
 
 export default class Details extends View {
   constructor(selector) {
@@ -7,7 +7,7 @@ export default class Details extends View {
   }
 
   update(duelId) {
-    Store.duel(duelId).then((duel) => {
+    Duel.fetch(duelId).then((duel) => {
       this.duel = duel
       this.show()
     })

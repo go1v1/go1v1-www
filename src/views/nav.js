@@ -1,11 +1,11 @@
 import View from 'go1v1-lib/view'
-import Store from 'go1v1-lib/store'
+import Summoner from '::/models/summoner'
 
 export default class Nav extends View {
   constructor(selector, summonerName) {
     super(selector)
 
-    Store.summoner(summonerName).then((summoner) => {
+    Summoner.fetch(summonerName).then((summoner) => {
       this.summoner = summoner
       this.show()
     })

@@ -28,15 +28,9 @@ export default class Duels extends View {
     return `
       <li class="duel">
         ${this.renderCup(duel)}
-        <figure class="summoner creator">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-          <figcaption>ngryman</figcaption>
-        </figure>
+        ${this.renderSummoner(duel.creator)}
         <span class="vs">vs</span>
-        <figure class="summoner target">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-          <figcaption>Vocyfera2</figcaption>
-        </figure>
+        ${this.renderSummoner(duel.target)}
       </li>
     `
   }
@@ -49,6 +43,15 @@ export default class Duels extends View {
         </svg>
       </div>
     ` : ''
+  }
+
+  renderSummoner(summonerName) {
+    return `
+      <figure class="summoner creator">
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        <figcaption>${summonerName}</figcaption>
+      </figure>
+    `
   }
 
   clicked(e) {

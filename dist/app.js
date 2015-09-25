@@ -1,4 +1,4 @@
-var environment = {"baseUrl":"//go1v1.github.io/go1v1-www/"};(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var environment = {"baseUrl":"/"};(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports={
   "classic": {
     "name": "Classic",
@@ -1759,13 +1759,36 @@ var Duels = (function () {
     key: 'fetch',
     value: function fetch(summonerName) {
       return new Promise(function (resolve, reject) {
-        firebase.child('euw/summoner-duels/' + summonerName).on('value', function (snapshot) {
-          var duels = [];
-          snapshot.forEach(function (childSnapshot) {
-            duels.push(new DuelPreview(childSnapshot));
-          });
-          resolve(duels);
-        }, reject);
+        resolve([new DuelPreview({
+          val: function val() {
+            return {
+              creator: 'ngryman',
+              target: 'Vocyfera2',
+              winner: 'ngryman'
+            };
+          },
+          key: function key() {
+            return 1;
+          }
+        }), new DuelPreview({
+          val: function val() {
+            return {
+              creator: 'ngryman',
+              target: 'Vocyfera2',
+              winner: 'ngryman'
+            };
+          },
+          key: function key() {
+            return 2;
+          }
+        })]);
+        // firebase.child(`euw/summoner-duels/${summonerName}`).on('value', function(snapshot) {
+        //   let duels = []
+        //   snapshot.forEach((childSnapshot) => {
+        //     duels.push(new DuelPreview(childSnapshot))
+        //   })
+        //   resolve(duels)
+        // }, reject)
       });
     }
   }]);
@@ -1876,7 +1899,61 @@ var Duel = (function (_Model) {
     key: 'fetch',
     value: function fetch(id) {
       return new Promise(function (resolve, reject) {
-        firebase.child('euw/duels/' + id).on('value', _go1v1LibModel2['default'].resolveWith(Duel, resolve), reject);
+        resolve(({
+          1: new Duel({
+            val: function val() {
+              return {
+                creator: 'ngryman',
+                target: 'Vocyfera2',
+                winner: 'ngryman',
+                mode: 'classic',
+                decisive: 'cs',
+                scores: {
+                  rules: {
+                    kill: {
+                      creator: 3,
+                      target: 1
+                    },
+                    cs: {
+                      creator: 100,
+                      target: 23
+                    },
+                    turret: {
+                      creator: 0,
+                      target: 0
+                    }
+                  }
+                }
+              };
+            },
+            key: function key() {
+              return 1;
+            }
+          }),
+          2: new Duel({
+            val: function val() {
+              return {
+                creator: 'ngryman',
+                target: 'Vocyfera2',
+                winner: 'ngryman',
+                mode: 'display_of_skill',
+                decisive: 'kill',
+                scores: {
+                  rules: {
+                    kill: {
+                      creator: 1,
+                      target: 0
+                    }
+                  }
+                }
+              };
+            },
+            key: function key() {
+              return 2;
+            }
+          })
+        })[id]);
+        // firebase.child(`euw/duels/${id}`).on('value', Model.resolveWith(Duel, resolve), reject)
       });
     }
   }]);
@@ -1916,9 +1993,20 @@ var Summoner = (function (_Model) {
     key: 'fetch',
     value: function fetch(name) {
       return new Promise(function (resolve, reject) {
-        firebase.child('euw/summoners/' + name).on('value', function (snapshot) {
-          resolve(new Summoner(snapshot));
-        }, reject);
+        resolve(new Summoner({
+          val: function val() {
+            return {
+              victories: 2,
+              defeats: 0
+            };
+          },
+          key: function key() {
+            return 'ngryman';
+          }
+        }));
+        // firebase.child(`euw/summoners/${name}`).on('value', function(snapshot) {
+        //   resolve(new Summoner(snapshot))
+        // }, reject)
       });
     }
   }]);

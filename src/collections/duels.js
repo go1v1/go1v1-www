@@ -5,13 +5,39 @@ const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
 export default class Duels {
   static fetch(summonerName) {
     return new Promise(function(resolve, reject) {
-      firebase.child(`euw/summoner-duels/${summonerName}`).on('value', function(snapshot) {
-        let duels = []
-        snapshot.forEach((childSnapshot) => {
-          duels.push(new DuelPreview(childSnapshot))
+      resolve([
+        new DuelPreview({
+          val() {
+            return {
+              creator: 'ngryman',
+              target: 'Vocyfera2',
+              winner: 'ngryman'
+            }
+          },
+          key() {
+            return 1
+          }
+        }),
+        new DuelPreview({
+          val() {
+            return {
+              creator: 'ngryman',
+              target: 'Vocyfera2',
+              winner: 'ngryman'
+            }
+          },
+          key() {
+            return 2
+          }
         })
-        resolve(duels)
-      }, reject)
+      ])
+      // firebase.child(`euw/summoner-duels/${summonerName}`).on('value', function(snapshot) {
+      //   let duels = []
+      //   snapshot.forEach((childSnapshot) => {
+      //     duels.push(new DuelPreview(childSnapshot))
+      //   })
+      //   resolve(duels)
+      // }, reject)
     })
   }
 }

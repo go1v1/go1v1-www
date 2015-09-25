@@ -29,7 +29,61 @@ export default class Duel extends Model {
 
   static fetch(id) {
     return new Promise(function(resolve, reject) {
-      firebase.child(`euw/duels/${id}`).on('value', Model.resolveWith(Duel, resolve), reject)
+      resolve({
+        1: new Duel({
+          val() {
+            return {
+              creator: 'ngryman',
+              target: 'Vocyfera2',
+              winner: 'ngryman',
+              mode: 'classic',
+              decisive: 'cs',
+              scores: {
+                rules: {
+                  kill: {
+                    creator: 3,
+                    target: 1
+                  },
+                  cs: {
+                    creator: 100,
+                    target: 23
+                  },
+                  turret: {
+                    creator: 0,
+                    target: 0
+                  }
+                }
+              }
+            }
+          },
+          key() {
+            return 1
+          }
+        }),
+        2: new Duel({
+          val() {
+            return {
+              creator: 'ngryman',
+              target: 'Vocyfera2',
+              winner: 'ngryman',
+              mode: 'display_of_skill',
+              decisive: 'kill',
+              scores: {
+                rules: {
+                  kill: {
+                    creator: 1,
+                    target: 0
+                  }
+                }
+              }
+            }
+          },
+          key() {
+            return 2
+          }
+        })
+      }[id])
+      // firebase.child(`euw/duels/${id}`).on('value', Model.resolveWith(Duel, resolve), reject)
     })
   }
 }

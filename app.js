@@ -2032,12 +2032,17 @@ var Duels = (function (_View) {
   }, {
     key: 'renderDuel',
     value: function renderDuel(duel) {
-      return '\n      <li class="duel">\n        ' + this.renderCup(duel) + '\n        <figure class="summoner creator">\n          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">\n          <figcaption>ngryman</figcaption>\n        </figure>\n        <span class="vs">vs</span>\n        <figure class="summoner target">\n          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">\n          <figcaption>Vocyfera2</figcaption>\n        </figure>\n      </li>\n    ';
+      return '\n      <li class="duel">\n        ' + this.renderCup(duel) + '\n        ' + this.renderSummoner(duel.creator) + '\n        <span class="vs">vs</span>\n        ' + this.renderSummoner(duel.target) + '\n      </li>\n    ';
     }
   }, {
     key: 'renderCup',
     value: function renderCup(duel) {
       return this.summonerName === duel[duel.winner] ? '\n      <div class="cup">\n        <svg>\n          <use xlink:href="#svg-cup">\n        </svg>\n      </div>\n    ' : '';
+    }
+  }, {
+    key: 'renderSummoner',
+    value: function renderSummoner(summonerName) {
+      return '\n      <figure class="summoner creator">\n        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">\n        <figcaption>' + summonerName + '</figcaption>\n      </figure>\n    ';
     }
   }, {
     key: 'clicked',

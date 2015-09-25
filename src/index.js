@@ -6,4 +6,4 @@ import SummonerPage from '::/pages/summoner'
 
 Router.add('/', new HomePage())
 Router.add('/summoner/:summoner', new SummonerPage())
-Router.start()
+Router.start({ base: environment.baseUrl })

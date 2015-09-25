@@ -1,119 +1,78 @@
 .duels {
   margin-left: 350px;
   background: rgba(255, 255, 255, .8);
-}
 
-.duel {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
-  padding: 0 40px;
-  height: 120px;
-  color: #666;
-  fill: currentColor;
-  cursor: pointer;
-  -webkit-user-select: none;
-  will-change: transform;
-}
+  .duel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    padding: 0 40px;
+    height: 120px;
+    color: #666;
+    fill: currentColor;
+    cursor: pointer;
+    -webkit-user-select: none;
+    will-change: transform;
 
-/*.duel::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  opacity: .4;
-  transform: translateX(-100%) scale(.7);
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #098CC8;
-  transition: transform 500ms, opacity 500ms;
-}*/
+    .cup {
+      flex: 1;
 
-.duel:hover {
-  background: rgba(128, 128, 128, .15);
-}
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
 
-.duel .cup {
-  flex: 1;
-}
+    .summoner {
+      position: relative;
+      flex: 0 0 70px;
+      text-align: center;
 
-.duel .cup svg {
-  width: 30px;
-  height: 30px;
-}
+      img {
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        background: rgba(0, 0, 0, .05);
+      }
+    }
 
-.duel .summoner {
-  position: relative;
-  flex: 0 0 70px;
-  text-align: center;
-}
+    .vs {
+      flex: 0 0 65px;
+      font-size: 20px;
+      text-align: center;
+      text-transform: uppercase;
+    }
 
-.duel .summoner img {
-  border: 1px solid rgba(0, 0, 0, .15);
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  background: rgba(0, 0, 0, .05);
-}
+    &:hover {
+      background: rgba(128, 128, 128, .15);
+    }
 
-.duel .summoner figcaption {
-  transition: color 300ms;
-}
+    &.selected {
+      position: relative;
+      z-index: 0;
+      color: #fff;
+      cursor: default;
 
-.duel .vs {
-  flex: 0 0 65px;
-  font-size: 20px;
-  text-align: center;
-  text-transform: uppercase;
-  transition: color 300ms;
-}
+      &::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #098CC8;
+      }
 
-.duel.selected {
-  position: relative;
-  z-index: 0;
-  color: #fff;
-  cursor: default;
-}
-
-.duel.selected::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-
-  /*opacity: .4;
-  transform: translateX(-100%) scale(.7);*/
-
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #098CC8;
-  animation: duel-select 500ms forwards;
-
-  /*opacity: 1;
-  transform: translateX(0);*/
-}
-
-.duel.selected .summoner img {
-  border-color: rgba(0, 0, 0, .15);
-  background: rgba(0, 0, 0, .1);
-}
-
-.duel.selected .vs,
-.duel.selected .summoner figcaption {
-  transition-delay: 150ms;
-}
-
-@keyframes duel-select {
-  from {
-    opacity: .4;
-    transform: translateX(-100%) scale(.7);
-  }
-
-  to {
-    opacity: 1;
+      .summoner {
+        img {
+          border-color: rgba(0, 0, 0, .15);
+          background: rgba(0, 0, 0, .1);
+        }
+      }
+    }
   }
 }

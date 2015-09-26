@@ -80,12 +80,14 @@ gulp.task('scripts', () => {
 
 gulp.task('build', ['styles', 'markup', 'scripts'])
 
+gulp.task('build:production', ['set-env:production', 'build'])
+
 gulp.task('dev', ['build'], () => {
   sync.init({
     ghostMode: false,
     open: false,
     server: {
-      baseDir: './dist',
+      baseDir: 'dist',
       middleware: [ history() ]
     }
   })
@@ -94,7 +96,7 @@ gulp.task('dev', ['build'], () => {
   gulp.watch('./markup/*.html', ['markup'])
 })
 
-gulp.task('deploy', ['set-env:production', 'build'], () => {
+gulp.task('deploy', ['build:production'], () => {
   spawn('git', 'subtree push --prefix dist origin gh-pages'.split(' '), {
     stdio: ['ignore', process.stdout, process.stderr]
   })

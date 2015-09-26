@@ -13,7 +13,7 @@ export default class Duels extends View {
       this.show()
 
       this.$el.on('click', '.duel', ::this.clicked)
-      $(document).on('keyup', ::this.key)
+      $(document).on('keyup.duels', ::this.key)
     })
   }
 

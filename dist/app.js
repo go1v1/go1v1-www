@@ -93,7 +93,9 @@ var Component = (function () {
   function Component() {
     babelHelpers.classCallCheck(this, Component);
 
-    this.component = {};
+    this.component = {
+      kind: this.constructor.name.toLowerCase()
+    };
   }
 
   babelHelpers.createClass(Component, [{
@@ -292,10 +294,14 @@ var View = (function (_Component) {
 
     babelHelpers.get(Object.getPrototypeOf(View.prototype), 'constructor', this).call(this);
     this.selector = selector;
-    this.props = {};
   }
 
   babelHelpers.createClass(View, [{
+    key: 'destroy',
+    value: function destroy() {
+      this.$el.off('.' + this.component.kind);
+    }
+  }, {
     key: 'show',
     value: function show() {
       var html = this.render();
@@ -2215,7 +2221,7 @@ var Duels = (function (_View) {
       _this.show();
 
       _this.$el.on('click', '.duel', _this.clicked.bind(_this));
-      $(document).on('keyup', _this.key.bind(_this));
+      $(document).on('keyup.duels', _this.key.bind(_this));
     });
   }
 

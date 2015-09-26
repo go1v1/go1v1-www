@@ -2,13 +2,9 @@ import View from 'go1v1-lib/view'
 
 export default class Duels extends View {
   bind() {
+    this.selectedIndex = -1
     this.$selected = null
     this.$el.on('click', '.duel', ::this.clicked)
-    $(document).on('keyup.duels', ::this.key)
-  }
-
-  unbind() {
-    $(document).off('duels')
   }
 
   render() {
@@ -56,17 +52,18 @@ export default class Duels extends View {
     this.selectElement($(`.duel:nth-child(${index + 1})`))
   }
 
-  clicked(e) {
-    this.selectElement($(e.currentTarget))
+  next() {
+    if (this.count - 1 === this.selectedIndex) return
+    this.select(++this.selectedIndex)
   }
 
-  key(e) {
-    if (40 === e.which) {
-      this.selectElement(this.$selected.next())
-    }
-    else if (38 === e.which) {
-      this.selectElement(this.$selected.prev())
-    }
+  prev() {
+    if (0 === this.selectedIndex) return
+    this.select(--this.selectedIndex)
+  }
+
+  clicked(e) {
+    this.selectElement($(e.currentTarget))
   }
 
   selectElement($duel) {
@@ -74,7 +71,8 @@ export default class Duels extends View {
       this.$selected.removeClass('selected')
     }
     $duel.addClass('selected')
+    this.selectedIndex = $duel.index()
     this.$selected = $duel
-    this.emit('selected', this.duelPreviews[$duel.index()].id)
+    this.emit('selected', this.duelPreviews[this.selectedIndex].id)
   }
 }

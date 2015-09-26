@@ -27,11 +27,29 @@ export default class SummonerPage extends Page {
     })
   }
 
+  bind() {
+    $(document).on('keyup.summonerPage', ::this.key)
+  }
+
+  unbind() {
+    $(document).off('duels.summonerPage')
+  }
+
   render() {
     return `
       <nav class="nav"></nav>
       <ul class="duels"></ul>
       <div class="details"></div>
     `
+  }
+
+  key(e) {
+    let duelsView = this.view('.duels')
+    if (40 === e.which) {
+      duelsView.next()
+    }
+    else if (38 === e.which) {
+      duelsView.prev()
+    }
   }
 }

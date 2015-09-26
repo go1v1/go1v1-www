@@ -289,24 +289,30 @@ var _component2 = babelHelpers.interopRequireDefault(_component);
 var View = (function (_Component) {
   babelHelpers.inherits(View, _Component);
 
-  function View(selector) {
+  function View() {
     babelHelpers.classCallCheck(this, View);
-
-    babelHelpers.get(Object.getPrototypeOf(View.prototype), 'constructor', this).call(this);
-    this.selector = selector;
+    babelHelpers.get(Object.getPrototypeOf(View.prototype), 'constructor', this).apply(this, arguments);
   }
 
   babelHelpers.createClass(View, [{
-    key: 'destroy',
-    value: function destroy() {
+    key: 'attach',
+    value: function attach(selector) {
+      this.selector = selector;
+      this.$el = $(this.selector);
+      if (this.bind) this.bind();
+    }
+  }, {
+    key: 'detach',
+    value: function detach() {
+      this.$el.empty();
+      this.selector = null;
       this.$el.off('.' + this.component.kind);
+      if (this.unbind) this.unbind();
     }
   }, {
     key: 'show',
     value: function show() {
-      var html = this.render();
-      this.$el = $(this.selector);
-      this.$el.html(html);
+      this.$el.html(this.render());
     }
   }, {
     key: 'view',
@@ -316,13 +322,16 @@ var View = (function (_Component) {
       }
 
       var views = this.component.views = this.component.views || [];
+      var autoShow = !!promise;
 
       if (!promise) {
         promise = Promise.resolve();
       }
 
       return promise.then(function (res) {
-        var view = new ctor(selector, res);
+        var view = new ctor(res);
+        view.attach(selector);
+        if (autoShow) view.show();
         views[selector] = view;
         return view;
       });
@@ -2180,6 +2189,7 @@ var Details = (function (_View) {
     value: function update(duel) {
       this.duel = duel;
       this.show();
+      // TODO: assign constructors parameters in view with pluralization of component's kind
     }
   }, {
     key: 'render',
@@ -2229,20 +2239,26 @@ var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 var Duels = (function (_View) {
   babelHelpers.inherits(Duels, _View);
 
-  function Duels(selector, duels) {
+  function Duels(duels) {
     babelHelpers.classCallCheck(this, Duels);
 
-    babelHelpers.get(Object.getPrototypeOf(Duels.prototype), 'constructor', this).call(this, selector);
+    babelHelpers.get(Object.getPrototypeOf(Duels.prototype), 'constructor', this).call(this);
     this.duels = duels;
-    this.$selected = null;
-
-    this.show();
-
-    this.$el.on('click', '.duel', this.clicked.bind(this));
-    $(document).on('keyup.duels', this.key.bind(this));
   }
 
   babelHelpers.createClass(Duels, [{
+    key: 'bind',
+    value: function bind() {
+      this.$selected = null;
+      this.$el.on('click', '.duel', this.clicked.bind(this));
+      $(document).on('keyup.duels', this.key.bind(this));
+    }
+  }, {
+    key: 'unbind',
+    value: function unbind() {
+      $(document).off('duels');
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this = this;
@@ -2311,12 +2327,11 @@ var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 var Nav = (function (_View) {
   babelHelpers.inherits(Nav, _View);
 
-  function Nav(selector, summoner) {
+  function Nav(summoner) {
     babelHelpers.classCallCheck(this, Nav);
 
-    babelHelpers.get(Object.getPrototypeOf(Nav.prototype), 'constructor', this).call(this, selector);
+    babelHelpers.get(Object.getPrototypeOf(Nav.prototype), 'constructor', this).call(this);
     this.summoner = summoner;
-    this.show();
   }
 
   babelHelpers.createClass(Nav, [{

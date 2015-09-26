@@ -1,15 +1,19 @@
 import View from 'go1v1-lib/view'
 
 export default class Duels extends View {
-  constructor(selector, duels) {
-    super(selector)
+  constructor(duels) {
+    super()
     this.duels = duels
+  }
+
+  bind() {
     this.$selected = null
-
-    this.show()
-
     this.$el.on('click', '.duel', ::this.clicked)
     $(document).on('keyup.duels', ::this.key)
+  }
+
+  unbind() {
+    $(document).off('duels')
   }
 
   render() {

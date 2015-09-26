@@ -29,14 +29,22 @@ const bundler = watchify(
 )
 bundler.on('update', bundle)
 
+function notify(err) {
+  sync.notify(err.message)
+}
+
+function logBundlerError(err) {
+  err.message = err.message.replace(':', '\n')
+  err.message = err.message.replace(/(.*) \((.*)\)/, '  $2 $1')
+  let message = new gutil.PluginError('browserify', `${err.message}\n${err.codeFrame}`).toString();
+  process.stderr.write(message + '\n');
+  notify(err)
+}
+
 function bundle() {
   return bundler
     .bundle()
-    .on('error',(err) => {
-      gutil.log(err.message)
-      sync.notify("Browserify Error!")
-      this.emit("end")
-    })
+    .on('error', logBundlerError)
     .pipe(exorcist('dist/app.js.map'))
     .pipe(source('app.js'))
     .pipe(insert.prepend('var environment = ' + JSON.stringify({
@@ -52,7 +60,7 @@ gulp.task('set-env:production', () => {
 
 gulp.task('styles', () => {
   gulp.src('styles/index.scss')
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass().on('error', sass.logError).on('error', notify))
     .pipe(autoprefixer())
     .pipe(rename('app.css'))
     .pipe(gulp.dest('dist'))

@@ -4,7 +4,6 @@ export default class Details extends View {
   update(duel) {
     this.duel = duel
     this.show()
-    // TODO: assign constructors parameters in view with pluralization of component's kind
   }
 
   render() {

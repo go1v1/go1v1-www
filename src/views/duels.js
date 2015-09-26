@@ -1,11 +1,6 @@
 import View from 'go1v1-lib/view'
 
 export default class Duels extends View {
-  constructor(duels) {
-    super()
-    this.duels = duels
-  }
-
   bind() {
     this.$selected = null
     this.$el.on('click', '.duel', ::this.clicked)
@@ -17,7 +12,7 @@ export default class Duels extends View {
   }
 
   render() {
-    return this.duels
+    return this.duelPreviews
     .reduce((markup, duel) =>
       markup + this.renderDuel(duel)
     , '')
@@ -72,6 +67,6 @@ export default class Duels extends View {
     }
     $duel.addClass('selected')
     this.$selected = $duel
-    this.emit('selected', this.duels[$duel.index()].id)
+    this.emit('selected', this.duelPreviews[$duel.index()].id)
   }
 }

@@ -94,7 +94,7 @@ var Component = (function () {
     babelHelpers.classCallCheck(this, Component);
 
     this.component = {
-      kind: this.constructor.name.toLowerCase()
+      kind: this.constructor.name[0].toLowerCase() + this.constructor.name.slice(1)
     };
   }
 
@@ -175,12 +175,19 @@ var _deepAssign = require('deep-assign');
 
 var _deepAssign2 = babelHelpers.interopRequireDefault(_deepAssign);
 
-var Model = (function () {
+var _component = require('./component');
+
+var _component2 = babelHelpers.interopRequireDefault(_component);
+
+var Model = (function (_Component) {
+  babelHelpers.inherits(Model, _Component);
+
   function Model(snapshot) {
     babelHelpers.classCallCheck(this, Model);
 
+    babelHelpers.get(Object.getPrototypeOf(Model.prototype), 'constructor', this).call(this);
     (0, _deepAssign2['default'])(this, snapshot.val());
-    if ('function' == typeof this.enhance) this.enhance(snapshot, this);
+    if ('function' === typeof this.enhance) this.enhance(snapshot, this);
   }
 
   babelHelpers.createClass(Model, null, [{
@@ -192,12 +199,12 @@ var Model = (function () {
     }
   }]);
   return Model;
-})();
+})(_component2['default']);
 
 exports['default'] = Model;
 module.exports = exports['default'];
 
-},{"deep-assign":11}],6:[function(require,module,exports){
+},{"./component":4,"deep-assign":11}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -291,7 +298,36 @@ var View = (function (_Component) {
 
   function View() {
     babelHelpers.classCallCheck(this, View);
-    babelHelpers.get(Object.getPrototypeOf(View.prototype), 'constructor', this).apply(this, arguments);
+
+    babelHelpers.get(Object.getPrototypeOf(View.prototype), 'constructor', this).call(this);
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = arguments[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var arg = _step.value;
+
+        if (arg && arg.component) {
+          this[arg.component.kind] = arg;
+        } else if (Array.isArray(arg) && 0 !== arg.length) {
+          this[arg[0].component.kind + 's'] = arg;
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator['return']) {
+          _iterator['return']();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
   }
 
   babelHelpers.createClass(View, [{
@@ -299,7 +335,7 @@ var View = (function (_Component) {
     value: function attach(selector) {
       this.selector = selector;
       this.$el = $(this.selector);
-      if (this.bind) this.bind();
+      if ('function' === typeof this.bind) this.bind();
     }
   }, {
     key: 'detach',
@@ -307,7 +343,7 @@ var View = (function (_Component) {
       this.$el.empty();
       this.selector = null;
       this.$el.off('.' + this.component.kind);
-      if (this.unbind) this.unbind();
+      if ('function' === typeof this.unbind) this.unbind();
     }
   }, {
     key: 'show',
@@ -2189,7 +2225,6 @@ var Details = (function (_View) {
     value: function update(duel) {
       this.duel = duel;
       this.show();
-      // TODO: assign constructors parameters in view with pluralization of component's kind
     }
   }, {
     key: 'render',
@@ -2239,11 +2274,9 @@ var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 var Duels = (function (_View) {
   babelHelpers.inherits(Duels, _View);
 
-  function Duels(duels) {
+  function Duels() {
     babelHelpers.classCallCheck(this, Duels);
-
-    babelHelpers.get(Object.getPrototypeOf(Duels.prototype), 'constructor', this).call(this);
-    this.duels = duels;
+    babelHelpers.get(Object.getPrototypeOf(Duels.prototype), 'constructor', this).apply(this, arguments);
   }
 
   babelHelpers.createClass(Duels, [{
@@ -2263,7 +2296,7 @@ var Duels = (function (_View) {
     value: function render() {
       var _this = this;
 
-      return this.duels.reduce(function (markup, duel) {
+      return this.duelPreviews.reduce(function (markup, duel) {
         return markup + _this.renderDuel(duel);
       }, '');
     }
@@ -2304,7 +2337,7 @@ var Duels = (function (_View) {
       }
       $duel.addClass('selected');
       this.$selected = $duel;
-      this.emit('selected', this.duels[$duel.index()].id);
+      this.emit('selected', this.duelPreviews[$duel.index()].id);
     }
   }]);
   return Duels;
@@ -2327,11 +2360,9 @@ var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 var Nav = (function (_View) {
   babelHelpers.inherits(Nav, _View);
 
-  function Nav(summoner) {
+  function Nav() {
     babelHelpers.classCallCheck(this, Nav);
-
-    babelHelpers.get(Object.getPrototypeOf(Nav.prototype), 'constructor', this).call(this);
-    this.summoner = summoner;
+    babelHelpers.get(Object.getPrototypeOf(Nav.prototype), 'constructor', this).apply(this, arguments);
   }
 
   babelHelpers.createClass(Nav, [{

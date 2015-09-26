@@ -1,11 +1,6 @@
 import View from 'go1v1-lib/view'
 
 export default class Nav extends View {
-  constructor(summoner) {
-    super()
-    this.summoner = summoner
-  }
-
   render() {
     let summoner = this.summoner
     return `

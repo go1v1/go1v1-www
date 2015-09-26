@@ -2187,6 +2187,10 @@ var SummonerPage = (function (_Page) {
           var detailsView = _this.view('.details');
           _modelsDuel2['default'].fetch(duelId).then(detailsView.update.bind(detailsView));
         });
+
+        if (0 !== duelsView.count) {
+          duelsView.select(0);
+        }
       });
     }
   }, {
@@ -2316,6 +2320,11 @@ var Duels = (function (_View) {
       return '\n      <figure class="summoner creator">\n        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">\n        <figcaption>' + summonerName + '</figcaption>\n      </figure>\n    ';
     }
   }, {
+    key: 'select',
+    value: function select(index) {
+      this.selectElement($('.duel:nth-child(' + (index + 1) + ')'));
+    }
+  }, {
     key: 'clicked',
     value: function clicked(e) {
       this.selectElement($(e.currentTarget));
@@ -2338,6 +2347,11 @@ var Duels = (function (_View) {
       $duel.addClass('selected');
       this.$selected = $duel;
       this.emit('selected', this.duelPreviews[$duel.index()].id);
+    }
+  }, {
+    key: 'count',
+    get: function get() {
+      return this.duelPreviews.length;
     }
   }]);
   return Duels;

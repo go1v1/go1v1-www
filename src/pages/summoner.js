@@ -20,6 +20,10 @@ export default class SummonerPage extends Page {
         let detailsView = this.view('.details')
         Duel.fetch(duelId).then(::detailsView.update)
       })
+
+      if (0 !== duelsView.count) {
+        duelsView.select(0)
+      }
     })
   }
 

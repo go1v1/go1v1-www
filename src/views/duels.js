@@ -48,6 +48,14 @@ export default class Duels extends View {
     `
   }
 
+  get count() {
+    return this.duelPreviews.length
+  }
+
+  select(index) {
+    this.selectElement($(`.duel:nth-child(${index + 1})`))
+  }
+
   clicked(e) {
     this.selectElement($(e.currentTarget))
   }

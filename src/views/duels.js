@@ -1,20 +1,15 @@
 import View from 'go1v1-lib/view'
-import DuelsCollection from '::/collections/duels'
 
 export default class Duels extends View {
-  constructor(selector, summonerName) {
+  constructor(selector, duels) {
     super(selector)
-
-    this.summonerName = summonerName
+    this.duels = duels
     this.$selected = null
 
-    DuelsCollection.fetch(summonerName).then((duels) => {
-      this.duels = duels
-      this.show()
+    this.show()
 
-      this.$el.on('click', '.duel', ::this.clicked)
-      $(document).on('keyup.duels', ::this.key)
-    })
+    this.$el.on('click', '.duel', ::this.clicked)
+    $(document).on('keyup.duels', ::this.key)
   }
 
   render() {

@@ -1,6 +1,6 @@
 import Model from 'go1v1-lib/model'
 
-const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
+// const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
 
 export default class Duels {
   static fetch(summonerName) {

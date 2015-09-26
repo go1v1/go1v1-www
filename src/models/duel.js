@@ -4,7 +4,7 @@ import modes from 'go1v1-static/modes'
 import rules from 'go1v1-static/rules'
 import restrictions from 'go1v1-static/restrictions'
 
-const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
+// const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
 
 export default class Duel extends Model {
   enhance(snapshot, duel) {

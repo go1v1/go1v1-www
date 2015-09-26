@@ -1,16 +1,9 @@
 import View from 'go1v1-lib/view'
-import Duel from '::/models/duel'
 
 export default class Details extends View {
-  constructor(selector) {
-    super(selector)
-  }
-
-  update(duelId) {
-    Duel.fetch(duelId).then((duel) => {
-      this.duel = duel
-      this.show()
-    })
+  update(duel) {
+    this.duel = duel
+    this.show()
   }
 
   render() {

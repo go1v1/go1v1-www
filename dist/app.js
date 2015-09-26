@@ -309,6 +309,25 @@ var View = (function (_Component) {
       this.$el.html(html);
     }
   }, {
+    key: 'view',
+    value: function view(selector, ctor, promise) {
+      if (1 === arguments.length) {
+        return this.component.views[selector];
+      }
+
+      var views = this.component.views = this.component.views || [];
+
+      if (!promise) {
+        promise = Promise.resolve();
+      }
+
+      return promise.then(function (res) {
+        var view = new ctor(selector, res);
+        views[selector] = view;
+        return view;
+      });
+    }
+  }, {
     key: 'visible',
     get: function get() {
       return !!this.$el;
@@ -1754,7 +1773,7 @@ var _go1v1LibModel = require('go1v1-lib/model');
 
 var _go1v1LibModel2 = babelHelpers.interopRequireDefault(_go1v1LibModel);
 
-var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
+// const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
 
 var Duels = (function () {
   function Duels() {
@@ -1870,7 +1889,7 @@ var _go1v1StaticRestrictions = require('go1v1-static/restrictions');
 
 var _go1v1StaticRestrictions2 = babelHelpers.interopRequireDefault(_go1v1StaticRestrictions);
 
-var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
+// const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
 
 var Duel = (function (_Model) {
   babelHelpers.inherits(Duel, _Model);
@@ -1980,7 +1999,7 @@ var _go1v1LibModel = require('go1v1-lib/model');
 
 var _go1v1LibModel2 = babelHelpers.interopRequireDefault(_go1v1LibModel);
 
-var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
+// const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
 
 var Summoner = (function (_Model) {
   babelHelpers.inherits(Summoner, _Model);
@@ -2078,6 +2097,14 @@ var _viewsDetails = require('::/views/details');
 
 var _viewsDetails2 = babelHelpers.interopRequireDefault(_viewsDetails);
 
+var _modelsDuel = require('::/models/duel');
+
+var _modelsDuel2 = babelHelpers.interopRequireDefault(_modelsDuel);
+
+var _collectionsDuels = require('::/collections/duels');
+
+var _collectionsDuels2 = babelHelpers.interopRequireDefault(_collectionsDuels);
+
 var _viewsDuels = require('::/views/duels');
 
 var _viewsDuels2 = babelHelpers.interopRequireDefault(_viewsDuels);
@@ -2085,6 +2112,10 @@ var _viewsDuels2 = babelHelpers.interopRequireDefault(_viewsDuels);
 var _viewsNav = require('::/views/nav');
 
 var _viewsNav2 = babelHelpers.interopRequireDefault(_viewsNav);
+
+var _modelsSummoner = require('::/models/summoner');
+
+var _modelsSummoner2 = babelHelpers.interopRequireDefault(_modelsSummoner);
 
 var SummonerPage = (function (_Page) {
   babelHelpers.inherits(SummonerPage, _Page);
@@ -2097,16 +2128,21 @@ var SummonerPage = (function (_Page) {
   babelHelpers.createClass(SummonerPage, [{
     key: 'enter',
     value: function enter(ctx) {
+      var _this = this;
+
       var summonerName = ctx.params.summoner;
 
       // logged?
       //   load additional features
 
-      var duels = new _viewsDuels2['default']('.duels', summonerName);
-      var details = new _viewsDetails2['default']('.details');
-      var nav = new _viewsNav2['default']('.nav', summonerName);
-
-      duels.on('selected', details.update.bind(details));
+      this.view('.details', _viewsDetails2['default']);
+      this.view('.nav', _viewsNav2['default'], _modelsSummoner2['default'].fetch(summonerName));
+      this.view('.duels', _viewsDuels2['default'], _collectionsDuels2['default'].fetch(summonerName)).then(function (duelsView) {
+        duelsView.on('selected', function (duelId) {
+          var detailsView = _this.view('.details');
+          _modelsDuel2['default'].fetch(duelId).then(detailsView.update.bind(detailsView));
+        });
+      });
     }
   }, {
     key: 'render',
@@ -2120,7 +2156,7 @@ var SummonerPage = (function (_Page) {
 exports['default'] = SummonerPage;
 module.exports = exports['default'];
 
-},{"::/views/details":22,"::/views/duels":23,"::/views/nav":24,"go1v1-lib/page":6}],22:[function(require,module,exports){
+},{"::/collections/duels":16,"::/models/duel":18,"::/models/summoner":19,"::/views/details":22,"::/views/duels":23,"::/views/nav":24,"go1v1-lib/page":6}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2131,28 +2167,19 @@ var _go1v1LibView = require('go1v1-lib/view');
 
 var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var _modelsDuel = require('::/models/duel');
-
-var _modelsDuel2 = babelHelpers.interopRequireDefault(_modelsDuel);
-
 var Details = (function (_View) {
   babelHelpers.inherits(Details, _View);
 
-  function Details(selector) {
+  function Details() {
     babelHelpers.classCallCheck(this, Details);
-
-    babelHelpers.get(Object.getPrototypeOf(Details.prototype), 'constructor', this).call(this, selector);
+    babelHelpers.get(Object.getPrototypeOf(Details.prototype), 'constructor', this).apply(this, arguments);
   }
 
   babelHelpers.createClass(Details, [{
     key: 'update',
-    value: function update(duelId) {
-      var _this = this;
-
-      _modelsDuel2['default'].fetch(duelId).then(function (duel) {
-        _this.duel = duel;
-        _this.show();
-      });
+    value: function update(duel) {
+      this.duel = duel;
+      this.show();
     }
   }, {
     key: 'render',
@@ -2188,7 +2215,7 @@ var Details = (function (_View) {
 exports['default'] = Details;
 module.exports = exports['default'];
 
-},{"::/models/duel":18,"go1v1-lib/view":8}],23:[function(require,module,exports){
+},{"go1v1-lib/view":8}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2199,39 +2226,29 @@ var _go1v1LibView = require('go1v1-lib/view');
 
 var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var _collectionsDuels = require('::/collections/duels');
-
-var _collectionsDuels2 = babelHelpers.interopRequireDefault(_collectionsDuels);
-
 var Duels = (function (_View) {
   babelHelpers.inherits(Duels, _View);
 
-  function Duels(selector, summonerName) {
-    var _this = this;
-
+  function Duels(selector, duels) {
     babelHelpers.classCallCheck(this, Duels);
 
     babelHelpers.get(Object.getPrototypeOf(Duels.prototype), 'constructor', this).call(this, selector);
-
-    this.summonerName = summonerName;
+    this.duels = duels;
     this.$selected = null;
 
-    _collectionsDuels2['default'].fetch(summonerName).then(function (duels) {
-      _this.duels = duels;
-      _this.show();
+    this.show();
 
-      _this.$el.on('click', '.duel', _this.clicked.bind(_this));
-      $(document).on('keyup.duels', _this.key.bind(_this));
-    });
+    this.$el.on('click', '.duel', this.clicked.bind(this));
+    $(document).on('keyup.duels', this.key.bind(this));
   }
 
   babelHelpers.createClass(Duels, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this = this;
 
       return this.duels.reduce(function (markup, duel) {
-        return markup + _this2.renderDuel(duel);
+        return markup + _this.renderDuel(duel);
       }, '');
     }
   }, {
@@ -2280,7 +2297,7 @@ var Duels = (function (_View) {
 exports['default'] = Duels;
 module.exports = exports['default'];
 
-},{"::/collections/duels":16,"go1v1-lib/view":8}],24:[function(require,module,exports){
+},{"go1v1-lib/view":8}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2291,24 +2308,15 @@ var _go1v1LibView = require('go1v1-lib/view');
 
 var _go1v1LibView2 = babelHelpers.interopRequireDefault(_go1v1LibView);
 
-var _modelsSummoner = require('::/models/summoner');
-
-var _modelsSummoner2 = babelHelpers.interopRequireDefault(_modelsSummoner);
-
 var Nav = (function (_View) {
   babelHelpers.inherits(Nav, _View);
 
-  function Nav(selector, summonerName) {
-    var _this = this;
-
+  function Nav(selector, summoner) {
     babelHelpers.classCallCheck(this, Nav);
 
     babelHelpers.get(Object.getPrototypeOf(Nav.prototype), 'constructor', this).call(this, selector);
-
-    _modelsSummoner2['default'].fetch(summonerName).then(function (summoner) {
-      _this.summoner = summoner;
-      _this.show();
-    });
+    this.summoner = summoner;
+    this.show();
   }
 
   babelHelpers.createClass(Nav, [{
@@ -2324,5 +2332,5 @@ var Nav = (function (_View) {
 exports['default'] = Nav;
 module.exports = exports['default'];
 
-},{"::/models/summoner":19,"go1v1-lib/view":8}]},{},[17])
+},{"go1v1-lib/view":8}]},{},[17])
 //# sourceMappingURL=app.js.map

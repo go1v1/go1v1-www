@@ -1,3 +1,4 @@
+import Auth from '::/services/auth'
 import Page from 'go1v1-lib/page'
 import DetailsView from '::/views/details'
 import Duel from '::/models/duel'
@@ -14,8 +15,15 @@ export default class SummonerPage extends Page {
     //   load additional features
 
     this.view('.details', DetailsView)
-    this.view('.nav', NavView, Summoner.fetch(summonerName))
-    this.view('.duels', DuelsView, Duels.fetch(summonerName)).then((duelsView) => {
+    this.view('.nav', NavView, {
+      summoner: Summoner.fetch(summonerName),
+      connected: Auth.connected()
+    })
+    this.view('.duels', DuelsView, {
+      duels: Duels.fetch(summonerName),
+      summonerName: summonerName
+    })
+    .then((duelsView) => {
       duelsView.on('selected', (duelId) => {
         let detailsView = this.view('.details')
         Duel.fetch(duelId).then(::detailsView.update)

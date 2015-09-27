@@ -4,11 +4,11 @@ export default class Duels extends View {
   bind() {
     this.selectedIndex = -1
     this.$selected = null
-    this.$el.on('click', '.duel', ::this.clicked)
+    this.$el.on('click.duels', '.duel', ::this.clicked)
   }
 
   render() {
-    return this.duelPreviews
+    return this.duels
     .reduce((markup, duel) =>
       markup + this.renderDuel(duel)
     , '')
@@ -45,7 +45,7 @@ export default class Duels extends View {
   }
 
   get count() {
-    return this.duelPreviews.length
+    return this.duels.length
   }
 
   select(index) {
@@ -73,6 +73,6 @@ export default class Duels extends View {
     $duel.addClass('selected')
     this.selectedIndex = $duel.index()
     this.$selected = $duel
-    this.emit('selected', this.duelPreviews[this.selectedIndex].id)
+    this.emit('selected', this.duels[this.selectedIndex].id)
   }
 }

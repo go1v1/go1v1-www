@@ -11,7 +11,7 @@ export default class Duels {
             return {
               creator: 'ngryman',
               target: 'Vocyfera2',
-              winner: 'ngryman'
+              winner: 'creator'
             }
           },
           key() {
@@ -23,7 +23,7 @@ export default class Duels {
             return {
               creator: 'ngryman',
               target: 'Vocyfera2',
-              winner: 'ngryman'
+              winner: 'creator'
             }
           },
           key() {

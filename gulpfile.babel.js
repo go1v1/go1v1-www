@@ -7,7 +7,6 @@ import exorcist from 'exorcist'
 import gulp from 'gulp'
 import gutil from 'gulp-util'
 import history from 'connect-history-api-fallback'
-import insert from 'gulp-insert'
 import rename from 'gulp-rename'
 import replace from 'gulp-replace'
 import sass from 'gulp-sass'
@@ -47,9 +46,6 @@ function bundle() {
     .on('error', logBundlerError)
     .pipe(exorcist('dist/app.js.map'))
     .pipe(source('app.js'))
-    .pipe(insert.prepend('var environment = ' + JSON.stringify({
-      baseUrl: process.env.GO1V1_BASEURL || '/'
-    }) + ';'))
     .pipe(gulp.dest('dist'))
     .pipe(sync.stream({ once: true }))
 }
@@ -70,6 +66,9 @@ gulp.task('styles', () => {
 gulp.task('markup', () => {
   gulp.src('markup/*.html')
     .pipe(replace('${baseUrl}', process.env.GO1V1_BASEURL || '/'))
+    .pipe(replace('${environment}', JSON.stringify({
+      baseUrl: process.env.GO1V1_BASEURL || '/'
+    })))
     .pipe(gulp.dest('dist'))
     .pipe(sync.stream())
 })

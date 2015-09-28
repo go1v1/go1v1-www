@@ -17,7 +17,7 @@ export default class SummonerPage extends Page {
     this.view('.details', DetailsView)
     this.view('.nav', NavView, {
       summoner: Summoner.fetch(summonerName),
-      connected: Auth.connected()
+      connected: Auth.connected
     })
     this.view('.duels', DuelsView, {
       duels: Duels.fetch(summonerName),

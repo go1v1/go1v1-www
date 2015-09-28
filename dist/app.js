@@ -3040,7 +3040,7 @@ var SummonerPage = (function (_Page) {
       this.view('.details', _viewsDetails2['default']);
       this.view('.nav', _viewsNav2['default'], {
         summoner: _modelsSummoner2['default'].fetch(summonerName),
-        connected: _servicesAuth2['default'].connected()
+        connected: _servicesAuth2['default'].connected
       });
       this.view('.duels', _viewsDuels2['default'], {
         duels: _collectionsDuels2['default'].fetch(summonerName),
@@ -3089,11 +3089,14 @@ exports['default'] = SummonerPage;
 module.exports = exports['default'];
 
 },{"::/collections/duels":15,"::/models/duel":17,"::/models/summoner":18,"::/services/auth":21,"::/views/details":22,"::/views/duels":23,"::/views/nav":24,"go1v1-lib/page":7}],21:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
+var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
+
+var auth = firebase.getAuth();
 
 var Auth = (function () {
   function Auth() {
@@ -3101,18 +3104,22 @@ var Auth = (function () {
   }
 
   babelHelpers.createClass(Auth, null, [{
-    key: "connected",
-    value: function connected() {
-      return new Promise(function (resolve, reject) {
-        resolve(Math.random() + .5 > 1);
-      });
+    key: 'connected',
+    get: function get() {
+      return null !== auth;
+    }
+  }, {
+    key: 'uid',
+    get: function get() {
+      if (!auth) return null;
+      return auth.uid;
     }
   }]);
   return Auth;
 })();
 
-exports["default"] = Auth;
-module.exports = exports["default"];
+exports['default'] = Auth;
+module.exports = exports['default'];
 
 },{}],22:[function(require,module,exports){
 'use strict';

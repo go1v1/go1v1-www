@@ -1,7 +1,14 @@
+const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
+
+const auth = firebase.getAuth()
+
 export default class Auth {
-  static connected() {
-    return new Promise(function(resolve, reject) {
-      resolve(Math.random() + .5 > 1)
-    })
+  static get connected() {
+    return null !== auth
+  }
+
+  static get uid() {
+    if (!auth) return null
+    return auth.uid
   }
 }

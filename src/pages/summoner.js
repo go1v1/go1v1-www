@@ -23,8 +23,8 @@ export default class SummonerPage extends Page {
       duels: Duels.fetch(summonerName),
       summonerName: summonerName
     })
-    .then((duelsView) => {
-      duelsView.on('selected', (duelId) => {
+    .then(duelsView => {
+      duelsView.on('selected', duelId => {
         let detailsView = this.view('.details')
         Duel.fetch(duelId).then(::detailsView.update)
       })

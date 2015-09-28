@@ -23,8 +23,8 @@ export default class Duel extends Model {
 
     // items instanciation
     // TODO: index by id
-    duel.creator.items = _.map(duel.creator.items, (id) => _.find(items, { id }))
-    duel.target.items = _.map(duel.target.items, (id) => _.find(items, { id }))
+    duel.creator.items = _.map(duel.creator.items, id => _.find(items, { id }))
+    duel.target.items = _.map(duel.target.items, id => _.find(items, { id }))
   }
 
   static fetch(id) {

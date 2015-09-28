@@ -8,8 +8,7 @@ export default class Duels extends View {
   }
 
   render() {
-    return this.duels
-    .reduce((markup, duel) =>
+    return _.reduce(this.duels, (markup, duel) =>
       markup + this.renderDuel(duel)
     , '')
   }

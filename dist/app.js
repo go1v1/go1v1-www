@@ -220,19 +220,16 @@ var $body = $('body');
 var Page = (function (_View) {
   babelHelpers.inherits(Page, _View);
 
-  function Page(id) {
+  function Page() {
     babelHelpers.classCallCheck(this, Page);
-
-    babelHelpers.get(Object.getPrototypeOf(Page.prototype), 'constructor', this).call(this, id);
-    this.selector = '#' + id;
-    this.views = [];
+    babelHelpers.get(Object.getPrototypeOf(Page.prototype), 'constructor', this).apply(this, arguments);
   }
 
   babelHelpers.createClass(Page, [{
     key: 'show',
     value: function show() {
       if (0 === $body.find(this.selector).length) {
-        $body.append('<main id="' + this.id + '">');
+        $body.append('<main id="' + this.component.kind + '">');
       }
 
       var html = this.render();
@@ -266,9 +263,14 @@ var Router = (function () {
     value: function add(path, p) {
       (0, _page2['default'])(path, function (ctx) {
         p.enter(ctx);
+        p.attach('#' + p.component.kind);
         p.show();
       });
-      _page2['default'].exit(path, p.exit);
+
+      _page2['default'].exit(path, function () {
+        p.detach('#' + p.component.kind);
+        p.exit();
+      });
     }
   }, {
     key: 'start',
@@ -298,36 +300,7 @@ var View = (function (_Component) {
 
   function View() {
     babelHelpers.classCallCheck(this, View);
-
-    babelHelpers.get(Object.getPrototypeOf(View.prototype), 'constructor', this).call(this);
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = arguments[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var arg = _step.value;
-
-        if (arg && arg.component) {
-          this[arg.component.kind] = arg;
-        } else if (Array.isArray(arg) && 0 !== arg.length) {
-          this[arg[0].component.kind + 's'] = arg;
-        }
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator['return']) {
-          _iterator['return']();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
+    babelHelpers.get(Object.getPrototypeOf(View.prototype), 'constructor', this).apply(this, arguments);
   }
 
   babelHelpers.createClass(View, [{
@@ -352,23 +325,34 @@ var View = (function (_Component) {
     }
   }, {
     key: 'view',
-    value: function view(selector, ctor, promise) {
+    value: function view(selector, ctor, data) {
       if (1 === arguments.length) {
         return this.component.views[selector];
       }
 
       var views = this.component.views = this.component.views || [];
-      var autoShow = !!promise;
 
-      if (!promise) {
-        promise = Promise.resolve();
-      }
+      data = data || {};
+      var keys = Object.keys(data);
+      var values = keys.map(function (key) {
+        return data[key];
+      });
+      var hasData = 0 !== keys.length;
 
-      return promise.then(function (res) {
-        var view = new ctor(res);
+      return Promise.all(values).then(function (res) {
+        var view = new ctor();
+
+        if (hasData) {
+          Object.assign(view, keys.reduce(function (acc, key, i, k) {
+            acc[key] = res[i];
+            return acc;
+          }, {}));
+        }
+
         view.attach(selector);
-        if (autoShow) view.show();
+        if (hasData) view.show();
         views[selector] = view;
+
         return view;
       });
     }
@@ -1818,7 +1802,7 @@ var _go1v1LibModel = require('go1v1-lib/model');
 
 var _go1v1LibModel2 = babelHelpers.interopRequireDefault(_go1v1LibModel);
 
-// const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
+var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
 
 var Duels = (function () {
   function Duels() {
@@ -1829,36 +1813,13 @@ var Duels = (function () {
     key: 'fetch',
     value: function fetch(summonerName) {
       return new Promise(function (resolve, reject) {
-        resolve([new DuelPreview({
-          val: function val() {
-            return {
-              creator: 'ngryman',
-              target: 'Vocyfera2',
-              winner: 'ngryman'
-            };
-          },
-          key: function key() {
-            return 1;
-          }
-        }), new DuelPreview({
-          val: function val() {
-            return {
-              creator: 'ngryman',
-              target: 'Vocyfera2',
-              winner: 'ngryman'
-            };
-          },
-          key: function key() {
-            return 2;
-          }
-        })]);
-        // firebase.child(`euw/summoner-duels/${summonerName}`).on('value', function(snapshot) {
-        //   let duels = []
-        //   snapshot.forEach((childSnapshot) => {
-        //     duels.push(new DuelPreview(childSnapshot))
-        //   })
-        //   resolve(duels)
-        // }, reject)
+        firebase.child('euw/summoner-duels/' + summonerName).on('value', function (snapshot) {
+          var duels = [];
+          snapshot.forEach(function (childSnapshot) {
+            duels.push(new DuelPreview(childSnapshot));
+          });
+          resolve(duels);
+        }, reject);
       });
     }
   }]);
@@ -1934,7 +1895,7 @@ var _go1v1StaticRestrictions = require('go1v1-static/restrictions');
 
 var _go1v1StaticRestrictions2 = babelHelpers.interopRequireDefault(_go1v1StaticRestrictions);
 
-// const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
+var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
 
 var Duel = (function (_Model) {
   babelHelpers.inherits(Duel, _Model);
@@ -1949,81 +1910,21 @@ var Duel = (function (_Model) {
     value: function enhance(snapshot, duel) {
       duel.mode = (0, _deepAssign2['default'])({}, _go1v1StaticModes2['default'][duel.mode]);
 
-      // rules enhancement
-      var duelRules = duel.mode.rules;
-      for (var ruleId in duelRules) {
-        duelRules[ruleId] = (0, _deepAssign2['default'])({ value: duelRules[ruleId] }, _go1v1StaticRules2['default'][ruleId]);
-      }
+      // rules instanciation
+      duel.mode.rules = _.mapValues(duel.mode.rules, function (val, id) {
+        return (0, _deepAssign2['default'])({ value: val }, _go1v1StaticRules2['default'][id]);
+      });
 
-      // restrictions enhancement
-      var duelRestrictions = duel.mode.restrictions;
-      for (var restrictionId in duelRestrictions) {
-        var restriction = duelRestrictions[restrictionId];
-        (0, _deepAssign2['default'])(duelRestrictions[restrictionId], _go1v1StaticRestrictions2['default'][restrictionId]);
-      }
-
-      // decisive score
-      duel.decisive = (0, _deepAssign2['default'])(duelRules[duel.decisive], duel.scores.rules[duel.decisive]);
+      // restrictions instanciation
+      duel.mode.restrictions = _.mapValues(duel.mode.restrictions, function (val, id) {
+        return (0, _deepAssign2['default'])(duel.mode.restrictions[id], _go1v1StaticRestrictions2['default'][id]);
+      });
     }
   }], [{
     key: 'fetch',
     value: function fetch(id) {
       return new Promise(function (resolve, reject) {
-        resolve(({
-          1: new Duel({
-            val: function val() {
-              return {
-                creator: 'ngryman',
-                target: 'Vocyfera2',
-                winner: 'ngryman',
-                mode: 'classic',
-                decisive: 'cs',
-                scores: {
-                  rules: {
-                    kill: {
-                      creator: 3,
-                      target: 1
-                    },
-                    cs: {
-                      creator: 100,
-                      target: 23
-                    },
-                    turret: {
-                      creator: 0,
-                      target: 0
-                    }
-                  }
-                }
-              };
-            },
-            key: function key() {
-              return 1;
-            }
-          }),
-          2: new Duel({
-            val: function val() {
-              return {
-                creator: 'ngryman',
-                target: 'Vocyfera2',
-                winner: 'ngryman',
-                mode: 'display_of_skill',
-                decisive: 'kill',
-                scores: {
-                  rules: {
-                    kill: {
-                      creator: 1,
-                      target: 0
-                    }
-                  }
-                }
-              };
-            },
-            key: function key() {
-              return 2;
-            }
-          })
-        })[id]);
-        // firebase.child(`euw/duels/${id}`).on('value', Model.resolveWith(Duel, resolve), reject)
+        firebase.child('euw/duels/' + id).on('value', _go1v1LibModel2['default'].resolveWith(Duel, resolve), reject);
       });
     }
   }]);
@@ -2044,7 +1945,7 @@ var _go1v1LibModel = require('go1v1-lib/model');
 
 var _go1v1LibModel2 = babelHelpers.interopRequireDefault(_go1v1LibModel);
 
-// const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
+var firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/');
 
 var Summoner = (function (_Model) {
   babelHelpers.inherits(Summoner, _Model);
@@ -2063,20 +1964,9 @@ var Summoner = (function (_Model) {
     key: 'fetch',
     value: function fetch(name) {
       return new Promise(function (resolve, reject) {
-        resolve(new Summoner({
-          val: function val() {
-            return {
-              victories: 2,
-              defeats: 0
-            };
-          },
-          key: function key() {
-            return 'ngryman';
-          }
-        }));
-        // firebase.child(`euw/summoners/${name}`).on('value', function(snapshot) {
-        //   resolve(new Summoner(snapshot))
-        // }, reject)
+        firebase.child('euw/summoners/' + name).on('value', function (snapshot) {
+          resolve(new Summoner(snapshot));
+        }, reject);
       });
     }
   }]);
@@ -2134,6 +2024,10 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _servicesAuth = require('::/services/auth');
+
+var _servicesAuth2 = babelHelpers.interopRequireDefault(_servicesAuth);
+
 var _go1v1LibPage = require('go1v1-lib/page');
 
 var _go1v1LibPage2 = babelHelpers.interopRequireDefault(_go1v1LibPage);
@@ -2181,8 +2075,14 @@ var SummonerPage = (function (_Page) {
       //   load additional features
 
       this.view('.details', _viewsDetails2['default']);
-      this.view('.nav', _viewsNav2['default'], _modelsSummoner2['default'].fetch(summonerName));
-      this.view('.duels', _viewsDuels2['default'], _collectionsDuels2['default'].fetch(summonerName)).then(function (duelsView) {
+      this.view('.nav', _viewsNav2['default'], {
+        summoner: _modelsSummoner2['default'].fetch(summonerName),
+        connected: _servicesAuth2['default'].connected()
+      });
+      this.view('.duels', _viewsDuels2['default'], {
+        duels: _collectionsDuels2['default'].fetch(summonerName),
+        summonerName: summonerName
+      }).then(function (duelsView) {
         duelsView.on('selected', function (duelId) {
           var detailsView = _this.view('.details');
           _modelsDuel2['default'].fetch(duelId).then(detailsView.update.bind(detailsView));
@@ -2194,9 +2094,29 @@ var SummonerPage = (function (_Page) {
       });
     }
   }, {
+    key: 'bind',
+    value: function bind() {
+      $(document).on('keyup.summonerPage', this.key.bind(this));
+    }
+  }, {
+    key: 'unbind',
+    value: function unbind() {
+      $(document).off('duels.summonerPage');
+    }
+  }, {
     key: 'render',
     value: function render() {
       return '\n      <nav class="nav"></nav>\n      <ul class="duels"></ul>\n      <div class="details"></div>\n    ';
+    }
+  }, {
+    key: 'key',
+    value: function key(e) {
+      var duelsView = this.view('.duels');
+      if (40 === e.which) {
+        duelsView.next();
+      } else if (38 === e.which) {
+        duelsView.prev();
+      }
     }
   }]);
   return SummonerPage;
@@ -2205,7 +2125,33 @@ var SummonerPage = (function (_Page) {
 exports['default'] = SummonerPage;
 module.exports = exports['default'];
 
-},{"::/collections/duels":16,"::/models/duel":18,"::/models/summoner":19,"::/views/details":22,"::/views/duels":23,"::/views/nav":24,"go1v1-lib/page":6}],22:[function(require,module,exports){
+},{"::/collections/duels":16,"::/models/duel":18,"::/models/summoner":19,"::/services/auth":22,"::/views/details":23,"::/views/duels":24,"::/views/nav":25,"go1v1-lib/page":6}],22:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Auth = (function () {
+  function Auth() {
+    babelHelpers.classCallCheck(this, Auth);
+  }
+
+  babelHelpers.createClass(Auth, null, [{
+    key: "connected",
+    value: function connected() {
+      return new Promise(function (resolve, reject) {
+        resolve(Math.random() + .5 > 1);
+      });
+    }
+  }]);
+  return Auth;
+})();
+
+exports["default"] = Auth;
+module.exports = exports["default"];
+
+},{}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2234,28 +2180,23 @@ var Details = (function (_View) {
     key: 'render',
     value: function render() {
       var duel = this.duel;
-      return '\n      <header class="summary">\n        <div class="mode">' + duel.mode.name + '</div>\n        <div class="score">' + duel.decisive.creator + ' / ' + duel.decisive.target + ' ' + duel.decisive.name + '</div>\n      </header>\n      <table class="scores">\n        <thead>\n          <tr>\n            <th></th>\n            <th>\n              <figure class="summoner creator">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.creator + '</figcaption>\n              </figure>\n            </th>\n            <th>\n              <figure class="summoner target">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.target + '</figcaption>\n              </figure>\n            </th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Rules</th>\n          </tr>\n          ' + this.renderRules(duel) + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Restrictions</th>\n          </tr>\n          ' + this.renderRestrictions(duel) + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Stuff</th>\n          </tr>\n          <tr>\n            <th></th>\n            <td>\n              <ul>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n              </ul>\n            </td>\n            <td>\n              <ul>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n              </ul>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    ';
+      return '\n      <header class="summary">\n        <div class="mode">' + duel.mode.name + '</div>\n        <div class="score">' + duel.creator.scores[duel.decisive] + ' / ' + duel.target.scores[duel.decisive] + ' ' + duel.mode.rules[duel.decisive].name + '</div>\n      </header>\n      <table class="scores">\n        <thead>\n          <tr>\n            <th></th>\n            <th>\n              <figure class="summoner creator">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.creator.name + '</figcaption>\n              </figure>\n            </th>\n            <th>\n              <figure class="summoner target">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.target.name + '</figcaption>\n              </figure>\n            </th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Rules</th>\n          </tr>\n          ' + this.renderRules(duel) + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Restrictions</th>\n          </tr>\n          ' + this.renderRestrictions(duel) + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Stuff</th>\n          </tr>\n          <tr>\n            <th></th>\n            <td>\n              <ul class="stuff">\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n              </ul>\n            </td>\n            <td>\n              <ul class="stuff">\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n              </ul>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    ';
     }
   }, {
     key: 'renderRules',
     value: function renderRules(duel) {
-      var markup = '';
-      for (var ruleId in duel.scores.rules) {
-        var rule = duel.mode.rules[ruleId];
-        var score = duel.scores.rules[ruleId];
-        markup += '\n        <tr>\n          <th>' + rule.value + ' ' + rule.name + '</td>\n          <td>' + score.creator + '</td>\n          <td>' + score.target + '</td>\n        </tr>\n      ';
-      }
-      return markup;
+      return _.reduce(duel.mode.rules, function (markup, rule, id) {
+        markup += '\n        <tr>\n          <th>' + rule.value + ' ' + rule.name + '</td>\n          <td>' + duel.creator.scores[id] + '</td>\n          <td>' + duel.target.scores[id] + '</td>\n        </tr>\n      ';
+        return markup;
+      }, '');
     }
   }, {
     key: 'renderRestrictions',
     value: function renderRestrictions(duel) {
-      var markup = '';
-      for (var restrictionId in duel.mode.restrictions) {
-        var restriction = duel.mode.restrictions[restrictionId];
+      return _.reduce(duel.mode.restrictions, function (markup, restriction) {
         markup += '\n        <tr>\n          <th>' + restriction.name + '</td>\n          <td>✓</td>\n          <td>✓</td>\n        </tr>\n      ';
-      }
-      return markup;
+        return markup;
+      }, '');
     }
   }]);
   return Details;
@@ -2264,7 +2205,7 @@ var Details = (function (_View) {
 exports['default'] = Details;
 module.exports = exports['default'];
 
-},{"go1v1-lib/view":8}],23:[function(require,module,exports){
+},{"go1v1-lib/view":8}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2286,21 +2227,16 @@ var Duels = (function (_View) {
   babelHelpers.createClass(Duels, [{
     key: 'bind',
     value: function bind() {
+      this.selectedIndex = -1;
       this.$selected = null;
-      this.$el.on('click', '.duel', this.clicked.bind(this));
-      $(document).on('keyup.duels', this.key.bind(this));
-    }
-  }, {
-    key: 'unbind',
-    value: function unbind() {
-      $(document).off('duels');
+      this.$el.on('click.duels', '.duel', this.clicked.bind(this));
     }
   }, {
     key: 'render',
     value: function render() {
       var _this = this;
 
-      return this.duelPreviews.reduce(function (markup, duel) {
+      return _.reduce(this.duels, function (markup, duel) {
         return markup + _this.renderDuel(duel);
       }, '');
     }
@@ -2325,18 +2261,21 @@ var Duels = (function (_View) {
       this.selectElement($('.duel:nth-child(' + (index + 1) + ')'));
     }
   }, {
+    key: 'next',
+    value: function next() {
+      if (this.count - 1 === this.selectedIndex) return;
+      this.select(++this.selectedIndex);
+    }
+  }, {
+    key: 'prev',
+    value: function prev() {
+      if (0 === this.selectedIndex) return;
+      this.select(--this.selectedIndex);
+    }
+  }, {
     key: 'clicked',
     value: function clicked(e) {
       this.selectElement($(e.currentTarget));
-    }
-  }, {
-    key: 'key',
-    value: function key(e) {
-      if (40 === e.which) {
-        this.selectElement(this.$selected.next());
-      } else if (38 === e.which) {
-        this.selectElement(this.$selected.prev());
-      }
     }
   }, {
     key: 'selectElement',
@@ -2345,13 +2284,14 @@ var Duels = (function (_View) {
         this.$selected.removeClass('selected');
       }
       $duel.addClass('selected');
+      this.selectedIndex = $duel.index();
       this.$selected = $duel;
-      this.emit('selected', this.duelPreviews[$duel.index()].id);
+      this.emit('selected', this.duels[this.selectedIndex].id);
     }
   }, {
     key: 'count',
     get: function get() {
-      return this.duelPreviews.length;
+      return this.duels.length;
     }
   }]);
   return Duels;
@@ -2360,7 +2300,7 @@ var Duels = (function (_View) {
 exports['default'] = Duels;
 module.exports = exports['default'];
 
-},{"go1v1-lib/view":8}],24:[function(require,module,exports){
+},{"go1v1-lib/view":8}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

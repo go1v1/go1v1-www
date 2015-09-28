@@ -11,7 +11,7 @@ export default class Details extends View {
     return `
       <header class="summary">
         <div class="mode">${duel.mode.name}</div>
-        <div class="score">${duel.decisive.creator} / ${duel.decisive.target} ${duel.decisive.name}</div>
+        <div class="score">${duel.creator.scores[duel.decisive]} / ${duel.target.scores[duel.decisive]} ${duel.mode.rules[duel.decisive].name}</div>
       </header>
       <table class="scores">
         <thead>
@@ -20,13 +20,13 @@ export default class Details extends View {
             <th>
               <figure class="summoner creator">
                 <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->
-                <figcaption>${duel.creator}</figcaption>
+                <figcaption>${duel.creator.name}</figcaption>
               </figure>
             </th>
             <th>
               <figure class="summoner target">
                 <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->
-                <figcaption>${duel.target}</figcaption>
+                <figcaption>${duel.target.name}</figcaption>
               </figure>
             </th>
           </tr>
@@ -49,21 +49,21 @@ export default class Details extends View {
           <tr>
             <th></th>
             <td>
-              <ul>
-                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+              <ul class="stuff">
+                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
               </ul>
             </td>
             <td>
-              <ul>
-                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="stuff"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+              <ul class="stuff">
+                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
               </ul>
             </td>
           </tr>
@@ -73,25 +73,20 @@ export default class Details extends View {
   }
 
   renderRules(duel) {
-    let markup = ''
-    for (let ruleId in duel.scores.rules) {
-      let rule = duel.mode.rules[ruleId]
-      let score = duel.scores.rules[ruleId]
+    return _.reduce(duel.mode.rules, (markup, rule, id) => {
       markup += `
         <tr>
           <th>${rule.value} ${rule.name}</td>
-          <td>${score.creator}</td>
-          <td>${score.target}</td>
+          <td>${duel.creator.scores[id]}</td>
+          <td>${duel.target.scores[id]}</td>
         </tr>
       `
-    }
-    return markup
+      return markup
+    }, '')
   }
 
   renderRestrictions(duel) {
-    let markup = ``
-    for (let restrictionId in duel.mode.restrictions) {
-      let restriction = duel.mode.restrictions[restrictionId]
+    return _.reduce(duel.mode.restrictions, (markup, restriction) => {
       markup += `
         <tr>
           <th>${restriction.name}</td>
@@ -99,7 +94,7 @@ export default class Details extends View {
           <td>✓</td>
         </tr>
       `
-    }
-    return markup
+      return markup
+    }, '')
   }
 }

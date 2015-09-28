@@ -16,38 +16,8 @@ import { spawn } from 'child_process'
 
 const sync = browserSync.create()
 
-watchify.args.debug = true
-
-const bundler = watchify(
-  browserify('./src/index.js', watchify.args)
-  .transform(babelify.configure({
-    sourceMapRelative: process.cwd(),
-    externalHelpers: true,
-    optional: ['es7.decorators', 'es7.functionBind']
-  }))
-)
-bundler.on('update', bundle)
-
 function notify(err) {
   sync.notify(err.message)
-}
-
-function logBundlerError(err) {
-  err.message = err.message.replace(':', '\n')
-  err.message = err.message.replace(/(.*) \((.*)\)/, '  $2 $1')
-  let message = new gutil.PluginError('browserify', `${err.message}\n${err.codeFrame}`).toString();
-  process.stderr.write(message + '\n');
-  notify(err)
-}
-
-function bundle() {
-  return bundler
-    .bundle()
-    .on('error', logBundlerError)
-    .pipe(exorcist('dist/app.js.map'))
-    .pipe(source('app.js'))
-    .pipe(gulp.dest('dist'))
-    .pipe(sync.stream({ once: true }))
 }
 
 gulp.task('set-env:production', () => {
@@ -74,6 +44,38 @@ gulp.task('markup', () => {
 })
 
 gulp.task('scripts', () => {
+  watchify.args.debug = true
+
+  let bundler = browserify('./src/index.js', watchify.args)
+  .transform(babelify.configure({
+    sourceMapRelative: process.cwd(),
+    externalHelpers: true,
+    optional: ['es7.decorators', 'es7.functionBind']
+  }))
+  bundler.on('update', bundle)
+
+  if (gulp.seq.find(task => 'dev' === task)) {
+    bundler = watchify(bundler)
+  }
+
+  function bundle() {
+    bundler
+      .bundle()
+      .on('error', logBundlerError)
+      .pipe(exorcist('dist/app.js.map'))
+      .pipe(source('app.js'))
+      .pipe(gulp.dest('dist'))
+      .pipe(sync.stream({ once: true }))
+  }
+
+  function logBundlerError(err) {
+    err.message = err.message.replace(':', '\n')
+    err.message = err.message.replace(/(.*) \((.*)\)/, '  $2 $1')
+    let message = new gutil.PluginError('browserify', `${err.message}\n${err.codeFrame}`).toString();
+    process.stderr.write(message + '\n');
+    notify(err)
+  }
+
   bundle()
 })
 

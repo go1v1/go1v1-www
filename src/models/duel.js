@@ -1,4 +1,3 @@
-import assign from 'deep-assign'
 import items from 'go1v1-static/items'
 import Model from 'go1v1-lib/model'
 import modes from 'go1v1-static/modes'
@@ -9,16 +8,16 @@ const firebase = new Firebase('https://popping-inferno-4756.firebaseio.com/')
 
 export default class Duel extends Model {
   enhance(snapshot, duel) {
-    duel.mode = assign({}, modes[duel.mode])
+    duel.mode = _.clone(modes[duel.mode], true)
 
     // rules instanciation
     duel.mode.rules = _.mapValues(duel.mode.rules, (val, id) =>
-      assign({ value: val }, rules[id])
+      _.assign({ value: val }, rules[id])
     )
 
     // restrictions instanciation
     duel.mode.restrictions = _.mapValues(duel.mode.restrictions, (val, id) =>
-      assign(duel.mode.restrictions[id], restrictions[id])
+      _.assign(duel.mode.restrictions[id], restrictions[id])
     )
 
     // items instanciation

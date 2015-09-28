@@ -1194,10 +1194,6 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _deepAssign = require('deep-assign');
-
-var _deepAssign2 = babelHelpers.interopRequireDefault(_deepAssign);
-
 var _component = require('./component');
 
 var _component2 = babelHelpers.interopRequireDefault(_component);
@@ -1209,7 +1205,7 @@ var Model = (function (_Component) {
     babelHelpers.classCallCheck(this, Model);
 
     babelHelpers.get(Object.getPrototypeOf(Model.prototype), 'constructor', this).call(this);
-    (0, _deepAssign2['default'])(this, snapshot.val());
+    _.assign(this, snapshot.val());
     if ('function' === typeof this.enhance) this.enhance(snapshot, this);
   }
 
@@ -1227,7 +1223,7 @@ var Model = (function (_Component) {
 exports['default'] = Model;
 module.exports = exports['default'];
 
-},{"./component":5,"deep-assign":12}],7:[function(require,module,exports){
+},{"./component":5}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1307,7 +1303,7 @@ var Router = (function () {
 exports['default'] = Router;
 module.exports = exports['default'];
 
-},{"page":14}],9:[function(require,module,exports){
+},{"page":12}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1366,7 +1362,7 @@ var View = (function (_Component) {
         var view = new ctor();
 
         if (hasData) {
-          Object.assign(view, keys.reduce(function (acc, key, i, k) {
+          _.assign(view, keys.reduce(function (acc, key, i, k) {
             acc[key] = res[i];
             return acc;
           }, {}));
@@ -1917,71 +1913,6 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 },{}],12:[function(require,module,exports){
-'use strict';
-var isObj = require('is-obj');
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Sources cannot be null or undefined');
-	}
-
-	return Object(val);
-}
-
-function base(to, from) {
-	if (to === from) {
-		return to;
-	}
-
-	from = Object(from);
-
-	for (var key in from) {
-		if (hasOwnProperty.call(from, key)) {
-			var val = from[key];
-
-			if (Array.isArray(val)) {
-				to[key] = val.slice();
-			} else if (isObj(val)) {
-				to[key] = base(to[key] || {}, val);
-			} else if (val !== undefined) {
-				to[key] = val;
-			}
-		}
-	}
-
-	if (Object.getOwnPropertySymbols) {
-		var symbols = Object.getOwnPropertySymbols(from);
-
-		for (var i = 0; i < symbols.length; i++) {
-			if (propIsEnumerable.call(from, symbols[i])) {
-				to[symbols[i]] = from[symbols[i]];
-			}
-		}
-	}
-
-	return to;
-}
-
-module.exports = function deepAssign(target) {
-	target = toObject(target);
-
-	for (var s = 1; s < arguments.length; s++) {
-		base(target, arguments[s]);
-	}
-
-	return target;
-};
-
-},{"is-obj":13}],13:[function(require,module,exports){
-'use strict';
-module.exports = function (x) {
-	var type = typeof x;
-	return x !== null && (type === 'object' || type === 'function');
-};
-
-},{}],14:[function(require,module,exports){
 (function (process){
   /* globals require, module */
 
@@ -2605,7 +2536,7 @@ module.exports = function (x) {
 
 }).call(this,require('_process'))
 
-},{"_process":11,"path-to-regexp":15}],15:[function(require,module,exports){
+},{"_process":11,"path-to-regexp":13}],13:[function(require,module,exports){
 var isArray = require('isarray');
 
 /**
@@ -2809,12 +2740,12 @@ function pathToRegexp (path, keys, options) {
   return attachKeys(new RegExp('^' + route, flags(options)), keys);
 }
 
-},{"isarray":16}],16:[function(require,module,exports){
+},{"isarray":14}],14:[function(require,module,exports){
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
 
-},{}],17:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2870,7 +2801,7 @@ var DuelPreview = (function (_Model) {
 
 module.exports = exports['default'];
 
-},{"go1v1-lib/model":6}],18:[function(require,module,exports){
+},{"go1v1-lib/model":6}],16:[function(require,module,exports){
 'use strict';
 
 require('babel-core/external-helpers');
@@ -2891,16 +2822,12 @@ _go1v1LibRouter2['default'].add('/', new _pagesHome2['default']());
 _go1v1LibRouter2['default'].add('/summoner/:summoner', new _pagesSummoner2['default']());
 _go1v1LibRouter2['default'].start({ base: environment.baseUrl });
 
-},{"::/pages/home":21,"::/pages/summoner":22,"babel-core/external-helpers":10,"go1v1-lib/router":8}],19:[function(require,module,exports){
+},{"::/pages/home":19,"::/pages/summoner":20,"babel-core/external-helpers":10,"go1v1-lib/router":8}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-
-var _deepAssign = require('deep-assign');
-
-var _deepAssign2 = babelHelpers.interopRequireDefault(_deepAssign);
 
 var _go1v1StaticItems = require('go1v1-static/items');
 
@@ -2935,16 +2862,16 @@ var Duel = (function (_Model) {
   babelHelpers.createClass(Duel, [{
     key: 'enhance',
     value: function enhance(snapshot, duel) {
-      duel.mode = (0, _deepAssign2['default'])({}, _go1v1StaticModes2['default'][duel.mode]);
+      duel.mode = _.clone(_go1v1StaticModes2['default'][duel.mode], true);
 
       // rules instanciation
       duel.mode.rules = _.mapValues(duel.mode.rules, function (val, id) {
-        return (0, _deepAssign2['default'])({ value: val }, _go1v1StaticRules2['default'][id]);
+        return _.assign({ value: val }, _go1v1StaticRules2['default'][id]);
       });
 
       // restrictions instanciation
       duel.mode.restrictions = _.mapValues(duel.mode.restrictions, function (val, id) {
-        return (0, _deepAssign2['default'])(duel.mode.restrictions[id], _go1v1StaticRestrictions2['default'][id]);
+        return _.assign(duel.mode.restrictions[id], _go1v1StaticRestrictions2['default'][id]);
       });
 
       // items instanciation
@@ -2970,7 +2897,7 @@ var Duel = (function (_Model) {
 exports['default'] = Duel;
 module.exports = exports['default'];
 
-},{"deep-assign":12,"go1v1-lib/model":6,"go1v1-static/items":1,"go1v1-static/modes":2,"go1v1-static/restrictions":3,"go1v1-static/rules":4}],20:[function(require,module,exports){
+},{"go1v1-lib/model":6,"go1v1-static/items":1,"go1v1-static/modes":2,"go1v1-static/restrictions":3,"go1v1-static/rules":4}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -3012,7 +2939,7 @@ var Summoner = (function (_Model) {
 exports['default'] = Summoner;
 module.exports = exports['default'];
 
-},{"go1v1-lib/model":6}],21:[function(require,module,exports){
+},{"go1v1-lib/model":6}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -3053,7 +2980,7 @@ var HomePage = (function (_Page) {
 exports['default'] = HomePage;
 module.exports = exports['default'];
 
-},{"go1v1-lib/page":7}],22:[function(require,module,exports){
+},{"go1v1-lib/page":7}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -3161,7 +3088,7 @@ var SummonerPage = (function (_Page) {
 exports['default'] = SummonerPage;
 module.exports = exports['default'];
 
-},{"::/collections/duels":17,"::/models/duel":19,"::/models/summoner":20,"::/services/auth":23,"::/views/details":24,"::/views/duels":25,"::/views/nav":26,"go1v1-lib/page":7}],23:[function(require,module,exports){
+},{"::/collections/duels":15,"::/models/duel":17,"::/models/summoner":18,"::/services/auth":21,"::/views/details":22,"::/views/duels":23,"::/views/nav":24,"go1v1-lib/page":7}],21:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3187,7 +3114,7 @@ var Auth = (function () {
 exports["default"] = Auth;
 module.exports = exports["default"];
 
-},{}],24:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -3249,7 +3176,7 @@ var Details = (function (_View) {
 exports['default'] = Details;
 module.exports = exports['default'];
 
-},{"go1v1-lib/view":9}],25:[function(require,module,exports){
+},{"go1v1-lib/view":9}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -3344,7 +3271,7 @@ var Duels = (function (_View) {
 exports['default'] = Duels;
 module.exports = exports['default'];
 
-},{"go1v1-lib/view":9}],26:[function(require,module,exports){
+},{"go1v1-lib/view":9}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -3376,5 +3303,5 @@ var Nav = (function (_View) {
 exports['default'] = Nav;
 module.exports = exports['default'];
 
-},{"go1v1-lib/view":9}]},{},[18])
+},{"go1v1-lib/view":9}]},{},[16])
 //# sourceMappingURL=app.js.map

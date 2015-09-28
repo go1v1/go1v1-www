@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "babel-core": "^5.8.24",
-    "deep-assign": "^1.0.0",
     "page": "^1.6.3"
   }
 }

@@ -1,4 +1,1027 @@
 var environment = {"baseUrl":"/"};(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports=[
+  {
+    "id": 1001,
+    "name": "Boots of Speed",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1001.png"
+  },
+  {
+    "id": 1004,
+    "name": "Faerie Charm",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1004.png"
+  },
+  {
+    "id": 1006,
+    "name": "Rejuvenation Bead",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1006.png"
+  },
+  {
+    "id": 1011,
+    "name": "Giant's Belt",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1011.png"
+  },
+  {
+    "id": 1018,
+    "name": "Cloak of Agility",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1018.png"
+  },
+  {
+    "id": 1026,
+    "name": "Blasting Wand",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1026.png"
+  },
+  {
+    "id": 1027,
+    "name": "Sapphire Crystal",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1027.png"
+  },
+  {
+    "id": 1028,
+    "name": "Ruby Crystal",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1028.png"
+  },
+  {
+    "id": 1029,
+    "name": "Cloth Armor",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1029.png"
+  },
+  {
+    "id": 1031,
+    "name": "Chain Vest",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1031.png"
+  },
+  {
+    "id": 1033,
+    "name": "Null-Magic Mantle",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1033.png"
+  },
+  {
+    "id": 1036,
+    "name": "Long Sword",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1036.png"
+  },
+  {
+    "id": 1037,
+    "name": "Pickaxe",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1037.png"
+  },
+  {
+    "id": 1042,
+    "name": "Dagger",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1042.png"
+  },
+  {
+    "id": 1043,
+    "name": "Recurve Bow",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1043.png"
+  },
+  {
+    "id": 1051,
+    "name": "Brawler's Gloves",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1051.png"
+  },
+  {
+    "id": 1052,
+    "name": "Amplifying Tome",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1052.png"
+  },
+  {
+    "id": 1053,
+    "name": "Vampiric Scepter",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1053.png"
+  },
+  {
+    "id": 1054,
+    "name": "Doran's Shield",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1054.png"
+  },
+  {
+    "id": 1055,
+    "name": "Doran's Blade",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1055.png"
+  },
+  {
+    "id": 1056,
+    "name": "Doran's Ring",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1056.png"
+  },
+  {
+    "id": 1057,
+    "name": "Negatron Cloak",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1057.png"
+  },
+  {
+    "id": 1300,
+    "name": "Enchantment: Furor",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1300.png"
+  },
+  {
+    "id": 1301,
+    "name": "Enchantment: Alacrity",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1301.png"
+  },
+  {
+    "id": 1302,
+    "name": "Enchantment: Captain",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1302.png"
+  },
+  {
+    "id": 1303,
+    "name": "Enchantment: Distortion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1303.png"
+  },
+  {
+    "id": 1304,
+    "name": "Enchantment: Homeguard",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1304.png"
+  },
+  {
+    "id": 1305,
+    "name": "Enchantment: Furor",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1305.png"
+  },
+  {
+    "id": 1306,
+    "name": "Enchantment: Alacrity",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1306.png"
+  },
+  {
+    "id": 1307,
+    "name": "Enchantment: Captain",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1307.png"
+  },
+  {
+    "id": 1308,
+    "name": "Enchantment: Distortion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1308.png"
+  },
+  {
+    "id": 1309,
+    "name": "Enchantment: Homeguard",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1309.png"
+  },
+  {
+    "id": 1310,
+    "name": "Enchantment: Furor",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1310.png"
+  },
+  {
+    "id": 1311,
+    "name": "Enchantment: Alacrity",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1311.png"
+  },
+  {
+    "id": 1312,
+    "name": "Enchantment: Captain",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1312.png"
+  },
+  {
+    "id": 1313,
+    "name": "Enchantment: Distortion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1313.png"
+  },
+  {
+    "id": 1314,
+    "name": "Enchantment: Homeguard",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1314.png"
+  },
+  {
+    "id": 1315,
+    "name": "Enchantment: Furor",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1315.png"
+  },
+  {
+    "id": 1316,
+    "name": "Enchantment: Alacrity",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1316.png"
+  },
+  {
+    "id": 1317,
+    "name": "Enchantment: Captain",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1317.png"
+  },
+  {
+    "id": 1318,
+    "name": "Enchantment: Distortion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1318.png"
+  },
+  {
+    "id": 1319,
+    "name": "Enchantment: Homeguard",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1319.png"
+  },
+  {
+    "id": 1320,
+    "name": "Enchantment: Furor",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1320.png"
+  },
+  {
+    "id": 1321,
+    "name": "Enchantment: Alacrity",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1321.png"
+  },
+  {
+    "id": 1322,
+    "name": "Enchantment: Captain",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1322.png"
+  },
+  {
+    "id": 1323,
+    "name": "Enchantment: Distortion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1323.png"
+  },
+  {
+    "id": 1324,
+    "name": "Enchantment: Homeguard",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1324.png"
+  },
+  {
+    "id": 1325,
+    "name": "Enchantment: Furor",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1325.png"
+  },
+  {
+    "id": 1326,
+    "name": "Enchantment: Alacrity",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1326.png"
+  },
+  {
+    "id": 1327,
+    "name": "Enchantment: Captain",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1327.png"
+  },
+  {
+    "id": 1328,
+    "name": "Enchantment: Distortion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1328.png"
+  },
+  {
+    "id": 1329,
+    "name": "Enchantment: Homeguard",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1329.png"
+  },
+  {
+    "id": 1330,
+    "name": "Enchantment: Furor",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1330.png"
+  },
+  {
+    "id": 1331,
+    "name": "Enchantment: Alacrity",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1331.png"
+  },
+  {
+    "id": 1332,
+    "name": "Enchantment: Captain",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1332.png"
+  },
+  {
+    "id": 1333,
+    "name": "Enchantment: Distortion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1333.png"
+  },
+  {
+    "id": 1334,
+    "name": "Enchantment: Homeguard",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1334.png"
+  },
+  {
+    "id": 1335,
+    "name": "Enchantment: Teleport",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1335.png"
+  },
+  {
+    "id": 1336,
+    "name": "Enchantment: Teleport",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1336.png"
+  },
+  {
+    "id": 1337,
+    "name": "Enchantment: Teleport",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1337.png"
+  },
+  {
+    "id": 1338,
+    "name": "Enchantment: Teleport",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1338.png"
+  },
+  {
+    "id": 1339,
+    "name": "Enchantment: Teleport",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1339.png"
+  },
+  {
+    "id": 1340,
+    "name": "Enchantment: Teleport",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1340.png"
+  },
+  {
+    "id": 1341,
+    "name": "Enchantment: Teleport",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/1341.png"
+  },
+  {
+    "id": 2003,
+    "name": "Health Potion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2003.png"
+  },
+  {
+    "id": 2004,
+    "name": "Mana Potion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2004.png"
+  },
+  {
+    "id": 2009,
+    "name": "Total Biscuit of Rejuvenation",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2009.png"
+  },
+  {
+    "id": 2010,
+    "name": "Total Biscuit of Rejuvenation",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2010.png"
+  },
+  {
+    "id": 2050,
+    "name": "Explorer's Ward",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2050.png"
+  },
+  {
+    "id": 2052,
+    "name": "Poro-Snax",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2052.png"
+  },
+  {
+    "id": 2054,
+    "name": "Diet Poro-Snax",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2054.png"
+  },
+  {
+    "id": 2137,
+    "name": "Elixir of Ruin",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2137.png"
+  },
+  {
+    "id": 2138,
+    "name": "Elixir of Iron",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2138.png"
+  },
+  {
+    "id": 2139,
+    "name": "Elixir of Sorcery",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2139.png"
+  },
+  {
+    "id": 2140,
+    "name": "Elixir of Wrath",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/2140.png"
+  },
+  {
+    "id": 3001,
+    "name": "Abyssal Scepter",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3001.png"
+  },
+  {
+    "id": 3003,
+    "name": "Archangel's Staff",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3003.png"
+  },
+  {
+    "id": 3004,
+    "name": "Manamune",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3004.png"
+  },
+  {
+    "id": 3006,
+    "name": "Berserker's Greaves",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3006.png"
+  },
+  {
+    "id": 3009,
+    "name": "Boots of Swiftness",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3009.png"
+  },
+  {
+    "id": 3010,
+    "name": "Catalyst the Protector",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3010.png"
+  },
+  {
+    "id": 3020,
+    "name": "Sorcerer's Shoes",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3020.png"
+  },
+  {
+    "id": 3022,
+    "name": "Frozen Mallet",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3022.png"
+  },
+  {
+    "id": 3024,
+    "name": "Glacial Shroud",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3024.png"
+  },
+  {
+    "id": 3025,
+    "name": "Iceborn Gauntlet",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3025.png"
+  },
+  {
+    "id": 3027,
+    "name": "Rod of Ages",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3027.png"
+  },
+  {
+    "id": 3028,
+    "name": "Chalice of Harmony",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3028.png"
+  },
+  {
+    "id": 3035,
+    "name": "Last Whisper",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3035.png"
+  },
+  {
+    "id": 3040,
+    "name": "Seraph's Embrace",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3040.png"
+  },
+  {
+    "id": 3042,
+    "name": "Muramana",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3042.png"
+  },
+  {
+    "id": 3044,
+    "name": "Phage",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3044.png"
+  },
+  {
+    "id": 3046,
+    "name": "Phantom Dancer",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3046.png"
+  },
+  {
+    "id": 3047,
+    "name": "Ninja Tabi",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3047.png"
+  },
+  {
+    "id": 3050,
+    "name": "Zeke's Harbinger",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3050.png"
+  },
+  {
+    "id": 3057,
+    "name": "Sheen",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3057.png"
+  },
+  {
+    "id": 3060,
+    "name": "Banner of Command",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3060.png"
+  },
+  {
+    "id": 3065,
+    "name": "Spirit Visage",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3065.png"
+  },
+  {
+    "id": 3067,
+    "name": "Kindlegem",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3067.png"
+  },
+  {
+    "id": 3068,
+    "name": "Sunfire Cape",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3068.png"
+  },
+  {
+    "id": 3069,
+    "name": "Talisman of Ascension",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3069.png"
+  },
+  {
+    "id": 3070,
+    "name": "Tear of the Goddess",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3070.png"
+  },
+  {
+    "id": 3071,
+    "name": "The Black Cleaver",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3071.png"
+  },
+  {
+    "id": 3074,
+    "name": "Ravenous Hydra (Melee Only)",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3074.png"
+  },
+  {
+    "id": 3077,
+    "name": "Tiamat (Melee Only)",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3077.png"
+  },
+  {
+    "id": 3078,
+    "name": "Trinity Force",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3078.png"
+  },
+  {
+    "id": 3082,
+    "name": "Warden's Mail",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3082.png"
+  },
+  {
+    "id": 3085,
+    "name": "Runaan's Hurricane (Ranged Only)",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3085.png"
+  },
+  {
+    "id": 3086,
+    "name": "Zeal",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3086.png"
+  },
+  {
+    "id": 3087,
+    "name": "Statikk Shiv",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3087.png"
+  },
+  {
+    "id": 3091,
+    "name": "Wit's End",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3091.png"
+  },
+  {
+    "id": 3092,
+    "name": "Frost Queen's Claim",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3092.png"
+  },
+  {
+    "id": 3093,
+    "name": "Avarice Blade",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3093.png"
+  },
+  {
+    "id": 3096,
+    "name": "Nomad's Medallion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3096.png"
+  },
+  {
+    "id": 3097,
+    "name": "Targon's Brace",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3097.png"
+  },
+  {
+    "id": 3098,
+    "name": "Frostfang",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3098.png"
+  },
+  {
+    "id": 3100,
+    "name": "Lich Bane",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3100.png"
+  },
+  {
+    "id": 3101,
+    "name": "Stinger",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3101.png"
+  },
+  {
+    "id": 3102,
+    "name": "Banshee's Veil",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3102.png"
+  },
+  {
+    "id": 3105,
+    "name": "Aegis of the Legion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3105.png"
+  },
+  {
+    "id": 3108,
+    "name": "Fiendish Codex",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3108.png"
+  },
+  {
+    "id": 3110,
+    "name": "Frozen Heart",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3110.png"
+  },
+  {
+    "id": 3111,
+    "name": "Mercury's Treads",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3111.png"
+  },
+  {
+    "id": 3113,
+    "name": "Aether Wisp",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3113.png"
+  },
+  {
+    "id": 3114,
+    "name": "Forbidden Idol",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3114.png"
+  },
+  {
+    "id": 3115,
+    "name": "Nashor's Tooth",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3115.png"
+  },
+  {
+    "id": 3116,
+    "name": "Rylai's Crystal Scepter",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3116.png"
+  },
+  {
+    "id": 3117,
+    "name": "Boots of Mobility",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3117.png"
+  },
+  {
+    "id": 3124,
+    "name": "Guinsoo's Rageblade",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3124.png"
+  },
+  {
+    "id": 3134,
+    "name": "The Brutalizer",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3134.png"
+  },
+  {
+    "id": 3135,
+    "name": "Void Staff",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3135.png"
+  },
+  {
+    "id": 3136,
+    "name": "Haunting Guise",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3136.png"
+  },
+  {
+    "id": 3140,
+    "name": "Quicksilver Sash",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3140.png"
+  },
+  {
+    "id": 3142,
+    "name": "Youmuu's Ghostblade",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3142.png"
+  },
+  {
+    "id": 3143,
+    "name": "Randuin's Omen",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3143.png"
+  },
+  {
+    "id": 3144,
+    "name": "Bilgewater Cutlass",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3144.png"
+  },
+  {
+    "id": 3145,
+    "name": "Hextech Revolver",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3145.png"
+  },
+  {
+    "id": 3146,
+    "name": "Hextech Gunblade",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3146.png"
+  },
+  {
+    "id": 3150,
+    "name": "Mirage Blade",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3150.png"
+  },
+  {
+    "id": 3151,
+    "name": "Liandry's Torment",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3151.png"
+  },
+  {
+    "id": 3152,
+    "name": "Will of the Ancients",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3152.png"
+  },
+  {
+    "id": 3153,
+    "name": "Blade of the Ruined King",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3153.png"
+  },
+  {
+    "id": 3155,
+    "name": "Hexdrinker",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3155.png"
+  },
+  {
+    "id": 3156,
+    "name": "Maw of Malmortius",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3156.png"
+  },
+  {
+    "id": 3158,
+    "name": "Ionian Boots of Lucidity",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3158.png"
+  },
+  {
+    "id": 3165,
+    "name": "Morellonomicon",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3165.png"
+  },
+  {
+    "id": 3172,
+    "name": "Zephyr",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3172.png"
+  },
+  {
+    "id": 3174,
+    "name": "Athene's Unholy Grail",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3174.png"
+  },
+  {
+    "id": 3190,
+    "name": "Locket of the Iron Solari",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3190.png"
+  },
+  {
+    "id": 3191,
+    "name": "Seeker's Armguard",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3191.png"
+  },
+  {
+    "id": 3196,
+    "name": "The Hex Core mk-1",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3196.png"
+  },
+  {
+    "id": 3197,
+    "name": "The Hex Core mk-2",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3197.png"
+  },
+  {
+    "id": 3198,
+    "name": "Perfect Hex Core",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3198.png"
+  },
+  {
+    "id": 3200,
+    "name": "Prototype Hex Core",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3200.png"
+  },
+  {
+    "id": 3211,
+    "name": "Spectre's Cowl",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3211.png"
+  },
+  {
+    "id": 3222,
+    "name": "Mikael's Crucible",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3222.png"
+  },
+  {
+    "id": 3240,
+    "name": "Enchantment: Furor",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3240.png"
+  },
+  {
+    "id": 3241,
+    "name": "Enchantment: Alacrity",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3241.png"
+  },
+  {
+    "id": 3242,
+    "name": "Enchantment: Captain",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3242.png"
+  },
+  {
+    "id": 3243,
+    "name": "Enchantment: Distortion",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3243.png"
+  },
+  {
+    "id": 3244,
+    "name": "Enchantment: Homeguard",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3244.png"
+  },
+  {
+    "id": 3245,
+    "name": "Enchantment: Teleport",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3245.png"
+  },
+  {
+    "id": 3301,
+    "name": "Ancient Coin",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3301.png"
+  },
+  {
+    "id": 3302,
+    "name": "Relic Shield",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3302.png"
+  },
+  {
+    "id": 3303,
+    "name": "Spellthief's Edge",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3303.png"
+  },
+  {
+    "id": 3401,
+    "name": "Face of the Mountain",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3401.png"
+  },
+  {
+    "id": 3430,
+    "name": "Rite of Ruin",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3430.png"
+  },
+  {
+    "id": 3431,
+    "name": "Netherstride Grimoire",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3431.png"
+  },
+  {
+    "id": 3433,
+    "name": "Lost Chapter",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3433.png"
+  },
+  {
+    "id": 3434,
+    "name": "Pox Arcana",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3434.png"
+  },
+  {
+    "id": 3504,
+    "name": "Ardent Censer",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3504.png"
+  },
+  {
+    "id": 3599,
+    "name": "The Black Spear",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3599.png"
+  },
+  {
+    "id": 3611,
+    "name": "Razorfin",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3611.png"
+  },
+  {
+    "id": 3612,
+    "name": "Ironback",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3612.png"
+  },
+  {
+    "id": 3613,
+    "name": "Plundercrab",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3613.png"
+  },
+  {
+    "id": 3614,
+    "name": "Ocklepod",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3614.png"
+  },
+  {
+    "id": 3615,
+    "name": "Mercenary Upgrade 1",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3615.png"
+  },
+  {
+    "id": 3616,
+    "name": "Mercenary Upgrade 2",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3616.png"
+  },
+  {
+    "id": 3617,
+    "name": "Mercenary Upgrade 3",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3617.png"
+  },
+  {
+    "id": 3621,
+    "name": "Offense Upgrade 1",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3621.png"
+  },
+  {
+    "id": 3622,
+    "name": "Offense Upgrade 2",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3622.png"
+  },
+  {
+    "id": 3623,
+    "name": "Offense Upgrade 3",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3623.png"
+  },
+  {
+    "id": 3624,
+    "name": "Defense Upgrade 1",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3624.png"
+  },
+  {
+    "id": 3625,
+    "name": "Defense Upgrade 2",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3625.png"
+  },
+  {
+    "id": 3626,
+    "name": "Defense Upgrade 3",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3626.png"
+  },
+  {
+    "id": 3652,
+    "name": "Typhoon Claws",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3652.png"
+  },
+  {
+    "id": 3742,
+    "name": "Dead Man's Plate",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3742.png"
+  },
+  {
+    "id": 3744,
+    "name": "Staff of Flowing Water",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3744.png"
+  },
+  {
+    "id": 3745,
+    "name": "Puppeteer",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3745.png"
+  },
+  {
+    "id": 3751,
+    "name": "Bami's Cinder",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3751.png"
+  },
+  {
+    "id": 3800,
+    "name": "Righteous Glory",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3800.png"
+  },
+  {
+    "id": 3801,
+    "name": "Crystalline Bracer",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3801.png"
+  },
+  {
+    "id": 3829,
+    "name": "Trickster's Glass",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3829.png"
+  },
+  {
+    "id": 3840,
+    "name": "Globe of Trust",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3840.png"
+  },
+  {
+    "id": 3841,
+    "name": "Swindler's Orb",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3841.png"
+  },
+  {
+    "id": 3844,
+    "name": "Murksphere",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3844.png"
+  },
+  {
+    "id": 3901,
+    "name": "Fire at Will",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3901.png"
+  },
+  {
+    "id": 3902,
+    "name": "Death's Daughter",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3902.png"
+  },
+  {
+    "id": 3903,
+    "name": "Raise Morale",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3903.png"
+  },
+  {
+    "id": 3911,
+    "name": "Martyr's Gambit",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3911.png"
+  },
+  {
+    "id": 3924,
+    "name": "Flesheater (Melee Only)",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3924.png"
+  },
+  {
+    "id": 3930,
+    "name": "Enchantment: Sated Devourer",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3930.png"
+  },
+  {
+    "id": 3931,
+    "name": "Enchantment: Sated Devourer",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3931.png"
+  },
+  {
+    "id": 3932,
+    "name": "Enchantment: Sated Devourer",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3932.png"
+  },
+  {
+    "id": 3933,
+    "name": "Enchantment: Sated Devourer",
+    "icon": "http://ddragon.leagueoflegends.com/cdn/5.14.1/img/item/3933.png"
+  }
+]
+},{}],2:[function(require,module,exports){
 module.exports={
   "classic": {
     "name": "Classic",
@@ -42,7 +1065,7 @@ module.exports={
   }
 }
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 module.exports={
   "item": {
     "name": "Item",
@@ -66,7 +1089,7 @@ module.exports={
   }
 }
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports={
   "kill": {
     "name": "Kill",
@@ -82,7 +1105,7 @@ module.exports={
   }
 }
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -164,7 +1187,7 @@ var Component = (function () {
 exports["default"] = Component;
 module.exports = exports["default"];
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -204,7 +1227,7 @@ var Model = (function (_Component) {
 exports['default'] = Model;
 module.exports = exports['default'];
 
-},{"./component":4,"deep-assign":11}],6:[function(require,module,exports){
+},{"./component":5,"deep-assign":12}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -242,7 +1265,7 @@ var Page = (function (_View) {
 exports['default'] = Page;
 module.exports = exports['default'];
 
-},{"./view":8}],7:[function(require,module,exports){
+},{"./view":9}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -284,7 +1307,7 @@ var Router = (function () {
 exports['default'] = Router;
 module.exports = exports['default'];
 
-},{"page":13}],8:[function(require,module,exports){
+},{"page":14}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -368,7 +1391,7 @@ var View = (function (_Component) {
 exports['default'] = View;
 module.exports = exports['default'];
 
-},{"./component":4}],9:[function(require,module,exports){
+},{"./component":5}],10:[function(require,module,exports){
 (function (global){
 (function (global) {
   var babelHelpers = global.babelHelpers = {};
@@ -800,7 +1823,7 @@ module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -893,7 +1916,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 var isObj = require('is-obj');
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -951,14 +1974,14 @@ module.exports = function deepAssign(target) {
 	return target;
 };
 
-},{"is-obj":12}],12:[function(require,module,exports){
+},{"is-obj":13}],13:[function(require,module,exports){
 'use strict';
 module.exports = function (x) {
 	var type = typeof x;
 	return x !== null && (type === 'object' || type === 'function');
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function (process){
   /* globals require, module */
 
@@ -1582,7 +2605,7 @@ module.exports = function (x) {
 
 }).call(this,require('_process'))
 
-},{"_process":10,"path-to-regexp":14}],14:[function(require,module,exports){
+},{"_process":11,"path-to-regexp":15}],15:[function(require,module,exports){
 var isArray = require('isarray');
 
 /**
@@ -1786,12 +2809,12 @@ function pathToRegexp (path, keys, options) {
   return attachKeys(new RegExp('^' + route, flags(options)), keys);
 }
 
-},{"isarray":15}],15:[function(require,module,exports){
+},{"isarray":16}],16:[function(require,module,exports){
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1847,7 +2870,7 @@ var DuelPreview = (function (_Model) {
 
 module.exports = exports['default'];
 
-},{"go1v1-lib/model":5}],17:[function(require,module,exports){
+},{"go1v1-lib/model":6}],18:[function(require,module,exports){
 'use strict';
 
 require('babel-core/external-helpers');
@@ -1868,7 +2891,7 @@ _go1v1LibRouter2['default'].add('/', new _pagesHome2['default']());
 _go1v1LibRouter2['default'].add('/summoner/:summoner', new _pagesSummoner2['default']());
 _go1v1LibRouter2['default'].start({ base: environment.baseUrl });
 
-},{"::/pages/home":20,"::/pages/summoner":21,"babel-core/external-helpers":9,"go1v1-lib/router":7}],18:[function(require,module,exports){
+},{"::/pages/home":21,"::/pages/summoner":22,"babel-core/external-helpers":10,"go1v1-lib/router":8}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1878,6 +2901,10 @@ Object.defineProperty(exports, '__esModule', {
 var _deepAssign = require('deep-assign');
 
 var _deepAssign2 = babelHelpers.interopRequireDefault(_deepAssign);
+
+var _go1v1StaticItems = require('go1v1-static/items');
+
+var _go1v1StaticItems2 = babelHelpers.interopRequireDefault(_go1v1StaticItems);
 
 var _go1v1LibModel = require('go1v1-lib/model');
 
@@ -1919,6 +2946,15 @@ var Duel = (function (_Model) {
       duel.mode.restrictions = _.mapValues(duel.mode.restrictions, function (val, id) {
         return (0, _deepAssign2['default'])(duel.mode.restrictions[id], _go1v1StaticRestrictions2['default'][id]);
       });
+
+      // items instanciation
+      // TODO: index by id
+      duel.creator.items = _.map(duel.creator.items, function (id) {
+        return _.find(_go1v1StaticItems2['default'], { id: id });
+      });
+      duel.target.items = _.map(duel.target.items, function (id) {
+        return _.find(_go1v1StaticItems2['default'], { id: id });
+      });
     }
   }], [{
     key: 'fetch',
@@ -1934,7 +2970,7 @@ var Duel = (function (_Model) {
 exports['default'] = Duel;
 module.exports = exports['default'];
 
-},{"deep-assign":11,"go1v1-lib/model":5,"go1v1-static/modes":1,"go1v1-static/restrictions":2,"go1v1-static/rules":3}],19:[function(require,module,exports){
+},{"deep-assign":12,"go1v1-lib/model":6,"go1v1-static/items":1,"go1v1-static/modes":2,"go1v1-static/restrictions":3,"go1v1-static/rules":4}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1976,7 +3012,7 @@ var Summoner = (function (_Model) {
 exports['default'] = Summoner;
 module.exports = exports['default'];
 
-},{"go1v1-lib/model":5}],20:[function(require,module,exports){
+},{"go1v1-lib/model":6}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2017,7 +3053,7 @@ var HomePage = (function (_Page) {
 exports['default'] = HomePage;
 module.exports = exports['default'];
 
-},{"go1v1-lib/page":6}],21:[function(require,module,exports){
+},{"go1v1-lib/page":7}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2125,7 +3161,7 @@ var SummonerPage = (function (_Page) {
 exports['default'] = SummonerPage;
 module.exports = exports['default'];
 
-},{"::/collections/duels":16,"::/models/duel":18,"::/models/summoner":19,"::/services/auth":22,"::/views/details":23,"::/views/duels":24,"::/views/nav":25,"go1v1-lib/page":6}],22:[function(require,module,exports){
+},{"::/collections/duels":17,"::/models/duel":19,"::/models/summoner":20,"::/services/auth":23,"::/views/details":24,"::/views/duels":25,"::/views/nav":26,"go1v1-lib/page":7}],23:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2151,7 +3187,7 @@ var Auth = (function () {
 exports["default"] = Auth;
 module.exports = exports["default"];
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2180,7 +3216,7 @@ var Details = (function (_View) {
     key: 'render',
     value: function render() {
       var duel = this.duel;
-      return '\n      <header class="summary">\n        <div class="mode">' + duel.mode.name + '</div>\n        <div class="score">' + duel.creator.scores[duel.decisive] + ' / ' + duel.target.scores[duel.decisive] + ' ' + duel.mode.rules[duel.decisive].name + '</div>\n      </header>\n      <table class="scores">\n        <thead>\n          <tr>\n            <th></th>\n            <th>\n              <figure class="summoner creator">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.creator.name + '</figcaption>\n              </figure>\n            </th>\n            <th>\n              <figure class="summoner target">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.target.name + '</figcaption>\n              </figure>\n            </th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Rules</th>\n          </tr>\n          ' + this.renderRules(duel) + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Restrictions</th>\n          </tr>\n          ' + this.renderRestrictions(duel) + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Stuff</th>\n          </tr>\n          <tr>\n            <th></th>\n            <td>\n              <ul class="stuff">\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n              </ul>\n            </td>\n            <td>\n              <ul class="stuff">\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>\n              </ul>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    ';
+      return '\n      <header class="summary">\n        <div class="mode">' + duel.mode.name + '</div>\n        <div class="score">' + duel.creator.scores[duel.decisive] + ' / ' + duel.target.scores[duel.decisive] + ' ' + duel.mode.rules[duel.decisive].name + '</div>\n      </header>\n      <table class="scores">\n        <thead>\n          <tr>\n            <th></th>\n            <th>\n              <figure class="summoner creator">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.creator.name + '</figcaption>\n              </figure>\n            </th>\n            <th>\n              <figure class="summoner target">\n                <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"> -->\n                <figcaption>' + duel.target.name + '</figcaption>\n              </figure>\n            </th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Rules</th>\n          </tr>\n          ' + this.renderRules(duel) + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Restrictions</th>\n          </tr>\n          ' + this.renderRestrictions(duel) + '\n          <tr class="heading">\n            <th></th>\n            <th colspan="2">Stuff</th>\n          </tr>\n          <tr>\n            <th></th>\n            <td>\n              <ul class="stuff">\n                ' + this.renderStuff(duel, 'creator') + '\n              </ul>\n            </td>\n            <td>\n              <ul class="stuff">\n                ' + this.renderStuff(duel, 'target') + '\n              </ul>\n            </td>\n          </tr>\n        </tbody>\n      </table>\n    ';
     }
   }, {
     key: 'renderRules',
@@ -2198,6 +3234,14 @@ var Details = (function (_View) {
         return markup;
       }, '');
     }
+  }, {
+    key: 'renderStuff',
+    value: function renderStuff(duel, who) {
+      return _.reduce(duel[who].items, function (markup, item) {
+        markup += '\n        <li class="item"><img src="' + item.icon + '"></li>\n      ';
+        return markup;
+      }, '');
+    }
   }]);
   return Details;
 })(_go1v1LibView2['default']);
@@ -2205,7 +3249,7 @@ var Details = (function (_View) {
 exports['default'] = Details;
 module.exports = exports['default'];
 
-},{"go1v1-lib/view":8}],24:[function(require,module,exports){
+},{"go1v1-lib/view":9}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2300,7 +3344,7 @@ var Duels = (function (_View) {
 exports['default'] = Duels;
 module.exports = exports['default'];
 
-},{"go1v1-lib/view":8}],25:[function(require,module,exports){
+},{"go1v1-lib/view":9}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2332,5 +3376,5 @@ var Nav = (function (_View) {
 exports['default'] = Nav;
 module.exports = exports['default'];
 
-},{"go1v1-lib/view":8}]},{},[17])
+},{"go1v1-lib/view":9}]},{},[18])
 //# sourceMappingURL=app.js.map

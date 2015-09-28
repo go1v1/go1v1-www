@@ -1,4 +1,5 @@
 import assign from 'deep-assign'
+import items from 'go1v1-static/items'
 import Model from 'go1v1-lib/model'
 import modes from 'go1v1-static/modes'
 import rules from 'go1v1-static/rules'
@@ -19,6 +20,11 @@ export default class Duel extends Model {
     duel.mode.restrictions = _.mapValues(duel.mode.restrictions, (val, id) =>
       assign(duel.mode.restrictions[id], restrictions[id])
     )
+
+    // items instanciation
+    // TODO: index by id
+    duel.creator.items = _.map(duel.creator.items, (id) => _.find(items, { id }))
+    duel.target.items = _.map(duel.target.items, (id) => _.find(items, { id }))
   }
 
   static fetch(id) {

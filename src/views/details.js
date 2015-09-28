@@ -50,20 +50,12 @@ export default class Details extends View {
             <th></th>
             <td>
               <ul class="stuff">
-                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+                ${this.renderStuff(duel, 'creator')}
               </ul>
             </td>
             <td>
               <ul class="stuff">
-                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
-                <li class="item"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></li>
+                ${this.renderStuff(duel, 'target')}
               </ul>
             </td>
           </tr>
@@ -93,6 +85,15 @@ export default class Details extends View {
           <td>✓</td>
           <td>✓</td>
         </tr>
+      `
+      return markup
+    }, '')
+  }
+
+  renderStuff(duel, who) {
+    return _.reduce(duel[who].items, (markup, item) => {
+      markup += `
+        <li class="item"><img src="${item.icon}"></li>
       `
       return markup
     }, '')
